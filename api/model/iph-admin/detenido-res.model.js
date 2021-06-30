@@ -13,6 +13,9 @@ let MyModel = new Schema({
   idPreIph: {
     type: Schema.ObjectId
   },
+  folioRND: {
+    type: String
+  },
   intervencion: {
     datPer: {
       type: DatosPersonales.schema

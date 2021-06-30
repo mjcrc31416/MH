@@ -16,6 +16,7 @@ IphAdmDetenidoKotMapper.serverToLocalWithData = function(serverData, localData) 
         idEvento: serverData.idEvento,
         // idLocal: serverData.idLocal,
         idPreIph: serverData.idPreIph,
+        folioRND: serverData.folioRND,
 
         fechaDetencion: serverData.fechaDetencion,
         ultimaMod: serverData.ultimaMod,
@@ -107,6 +108,7 @@ IphAdmDetenidoKotMapper.localToServer = function(localData) {
         "idEvento": localData.idEvento,
         "idLocal":localData.id,
         "idPreIph": localData.idPreIph,
+        "folioRND": localData.folioRND,
 
         "intervencion":{
             "datPer":{
@@ -180,7 +182,7 @@ IphAdmDetenidoKotMapper.localToServer = function(localData) {
     console.log(serverData);
 
     return serverData;
-} 
+}
 
 
 IphAdmDetenidoKotMapper.serverToLocal = function(serverData) {
@@ -193,6 +195,7 @@ IphAdmDetenidoKotMapper.serverToLocal = function(serverData) {
         idEvento: serverData.idEvento,
         idLocal: serverData.idLocal,
         idPreIph: serverData.idPreIph,
+        folioRND: serverData.folioRND,
         fechaDetencion: serverData.intervencion.fechaDetencion,
         ultimaMod: serverData.intervencion.ultimaMod,
         descripcion: serverData.intervencion.descripcion,
@@ -204,7 +207,7 @@ IphAdmDetenidoKotMapper.serverToLocal = function(serverData) {
 
         alias: (_.isNil(serverData.intervencion.datPer.alias)) ? [] : serverData.intervencion.datPer.alias.split(","),
         pics: (_.isNil(serverData.intervencion.imgsV2)) ? [] : serverData.intervencion.imgsV2.map((it) => {
-            return { 
+            return {
                 id: 0,
                 _id: it._id,
                 orgFilePath: it.orgFilePath,

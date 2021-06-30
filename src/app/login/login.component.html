@@ -1,0 +1,27 @@
+<div class="full-page">
+  <mat-card class="login-card">
+    <mat-card-title class="title text-center" style="color: whitesmoke">
+      Bienvenido
+    </mat-card-title>
+
+<form class="form-mat" (ngSubmit)="login()">
+  <p>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Usuario" [(ngModel)]="user.correo" name="correo" style="color: whitesmoke">
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="user.pwd" name="pwd" style="color: whitesmoke">
+    </mat-form-field>
+  </p>
+
+  <div class="button">
+    <button type="submit" mat-raised-button color="primary" mat-button>Login</button>
+    <p></p><span style="color: whitesmoke">{{errorMsg}}</span>
+  </div>
+
+    </form>
+  </mat-card>
+</div>

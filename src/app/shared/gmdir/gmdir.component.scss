@@ -1,0 +1,77 @@
+
+
+
+@import "~src/assets/app-fonts";
+:host{
+  margin: 0px;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: auto auto;
+  grid-template-rows: 50px auto 60px;
+
+
+  .title {
+    grid-column: 1 / -1;
+    border-bottom: 1px gainsboro solid;
+
+    h3 {
+      font-family: $font-fam;
+      font-size: $title-01;
+      margin-left: 5px;
+    }
+  }
+
+  .content {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 40px 300px 30px 30px 30px;
+    padding: 10px;
+
+    .form-group {
+      grid-column: 1 / -1;
+      display: grid;
+    }
+
+    .cont-etiquetas {
+      display: grid;
+      grid-column: 1 / -1;
+
+    }
+
+    .filechose-cont {
+      grid-column: 1 / -1;
+    }
+
+    .tagcont {
+      grid-column: 1 / -1;
+
+      display: grid;
+      grid-template-columns: auto;
+
+      .example-chip-list{
+        display: grid;
+      }
+    }
+  }
+
+  .btnset {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto auto;
+
+    border-top: 1px gainsboro solid;
+
+    button {
+      height: 40px;
+      width: 150px;
+      align-self: center;
+      justify-self: center;
+    }
+  }
+
+}
+
+span {
+  font-family: $font-fam;
+}

@@ -1,0 +1,27 @@
+<div class="comp-cont">
+  <form [formGroup]="form">
+    <mat-card class="form-cont" class="form-cont">
+      <div class="title">
+        <h4>Establecer Contraseña</h4>
+        <mat-divider></mat-divider>
+      </div>
+
+      <mat-form-field appearance="outline" class="span-row span-cols" style="margin-top: 40px">
+        <mat-label>Contraseña</mat-label>
+        <input matInput placeholder="Contraseña" formControlName="pwd1" type="password">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-row span-cols">
+        <mat-label>Repetir contraseña</mat-label>
+        <input matInput placeholder="Repetir contraseña" formControlName="pwd2" type="password">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" (click)="setPwd()">Guardar</button>
+      <button mat-raised-button (click)="exit($event)">Cerrar</button>
+
+    </mat-card>
+
+  </form>
+</div>

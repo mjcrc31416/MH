@@ -1,0 +1,46 @@
+<div>
+  <button mat-button (click)="delete($event)">
+    <i style="font-size:9pt; text-align: center;" class="material-icons">delete</i>
+  </button>
+</div>
+
+<div class="center-grid-cont">
+  <span>
+    <i style="font-size:9pt; text-align: center;" class="material-icons">insert_drive_file</i>
+  </span>
+</div>
+
+<div>
+  <span>{{this.fileData.nombre}}</span>
+</div>
+
+<div style="margin-left: 5px; margin-right: 5px;">
+<!--  <span>{{(this.fileData.fileSize/1024)/1024 | number: '1.0' }} MB</span>-->
+</div>
+
+<div>
+  <span>Etiquetas: </span><span>{{this.joinTags(this.fileData.etiquetasList)}}</span>
+</div>
+
+<div *ngIf="this.isFileUploading" class="upload-progress center-grid-cont">
+  <mat-progress-spinner
+    class="spinner"
+    [color]="color"
+    [mode]="mode"
+    [diameter]="25"
+    [value]="value">
+  </mat-progress-spinner>
+  <span>{{this.uploadProgress}}</span>
+</div>
+
+<div *ngIf="!this.isFileUploading" class="center-grid-cont">
+  <button *ngIf="!this.isFileDownloading"  (click)="downloadFile()">Descargar</button>
+  <mat-progress-spinner
+    *ngIf="this.isFileDownloading"
+    class="spinner"
+    [color]="color"
+    [mode]="mode"
+    [diameter]="25"
+    [value]="value">
+  </mat-progress-spinner>
+</div>

@@ -1,0 +1,50 @@
+<form class="grid-c06-01" [formGroup]="form">
+<!--  <div class="btn-tool">-->
+<!--    <button mat-raised-button color="primary"  class="bnt-mapa" (click)="this.showDlgGMaps()" >Ubicar en mapa</button>-->
+<!--  </div>-->
+
+  <mat-form-field appearance="outline" style="grid-column: 1/5;">
+    <mat-label>Calle / Tramo carretero</mat-label>
+    <input matInput placeholder="Calle / Tramo carretero" formControlName="calle">
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="grid-column: 5/6;">
+    <mat-label>Num. interior</mat-label>
+    <input matInput placeholder="Num. interior" formControlName="numInt">
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="grid-column: 6/-1;">
+    <mat-label>Num. exterior</mat-label>
+    <input matInput placeholder="Num. exterior" formControlName="numero">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="grid-column: 1/5;">
+    <mat-label>Colonia / Localidad</mat-label>
+    <input matInput placeholder="Colonia / Localidad" formControlName="colonia">
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="grid-column: 5/-1;" >
+    <mat-label>Código postal</mat-label>
+    <input matInput placeholder="Código postal" formControlName="cp">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="grid-column: 1/4;">
+    <mat-label>Entidad Federativa</mat-label>
+    <input matInput placeholder="Entidad Federativa" formControlName="entidad">
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="grid-column: 4/-1;">
+    <mat-label>Municipio</mat-label>
+    <input matInput placeholder="Municipio" formControlName="municipio">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="grid-column: 1/-1;">
+    <mat-label>Referencias</mat-label>
+    <textarea matInput placeholder="Referencias" rows="5" formControlName="referencias"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="grid-column: 1/4;">
+    <mat-label>Latitud</mat-label>
+    <input matInput placeholder="Latitud" formControlName="lat">
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="grid-column: 4/-1;">
+    <mat-label>Londitud</mat-label>
+    <input matInput placeholder="Londitud" formControlName="long">
+  </mat-form-field>
+</form>

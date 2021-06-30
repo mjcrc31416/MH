@@ -1,0 +1,33 @@
+<app-action-bar class="action-bar"
+                [bntConf]="{new: true, refresh: true}"
+                [titles]="['Terminales', 'Consulta']"
+                (new)="onNuevo()"
+                (refresh)="onActualizar()"
+>
+</app-action-bar>
+
+<div class="content">
+
+  <app-std-grid
+    [stdColConfig]="this.stdColConfig"
+    [sourceData]="this.sourceData"
+    [userColDefs]="this.colDefs"
+    (editRow)="this.onEditRow($event)"
+    (removeRow)="this.onRemoveRow($event)"
+  >
+  </app-std-grid>
+  <span></span>
+</div>
+
+<!-- <div class="content">
+  <app-std-grid2
+  #grid1
+  class="span-row"
+  [stdColConfig]="this.grid1ColConfig"
+  [sourceData]="this.grid1SourceData"
+  [userColDefs]="this.grid1ColDefs"
+  (removeRow)="this.grid1RemoveRow($event)"
+  (editRow)="this.grid1EditRow($event)"
+>
+</app-std-grid2> 
+</div> -->

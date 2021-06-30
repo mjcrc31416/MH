@@ -1,0 +1,13 @@
+.mcont {
+  display: grid;
+  grid-template-columns: 60px 15px 60px;
+
+  span {
+    text-align: center;
+    align-self: center;
+  }
+
+  .inputcont {
+    align-self: center;
+  }
+}

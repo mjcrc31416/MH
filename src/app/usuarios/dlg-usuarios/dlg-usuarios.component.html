@@ -1,0 +1,12 @@
+<mat-tab-group>
+  <mat-tab label="Buscar">
+
+    <ag-grid-angular #agGrid style="width: 100%; height: 200px;" id="myGrid" class="ag-theme-balham"
+      [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowData]="rowData" [floatingFilter]="true"
+      (gridReady)="onGridReady($event)"></ag-grid-angular>
+    <button mat-button mat-dialog-close>Cerrar</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button (click)="onSelectedValues()">Agregar</button>
+  </mat-tab>
+  
+</mat-tab-group>

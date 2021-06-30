@@ -1,0 +1,56 @@
+:host {
+  // display: flex;
+  // justify-content: center;
+  // height: 100px;
+  // margin: 0px 0px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+
+  background-image: url(~src/assets/logoruben.png);
+  padding: 0%;
+  background-size: cover ;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.full-page{
+  display: grid;
+  // height: 100vh;
+  background-image: url(~src/assets/logoruben.png);
+  padding: 0%;
+  background-size: cover ;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.login-card {
+  background-color: rgb(129, 13, 13);
+  margin: auto;
+  width: 400px;
+  height: 300px;
+}
+
+      .mat-form-field {
+        width: 100%;
+        min-width: 300px;
+    
+      }
+
+      .button {
+        display: flex;
+        justify-content: flex-end;
+        text-decoration-color: azure;
+      }
+
+  ::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: gainsboro !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: gainsboro !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: gainsboro !important;;
+}

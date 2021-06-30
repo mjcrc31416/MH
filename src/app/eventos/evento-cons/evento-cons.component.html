@@ -1,0 +1,19 @@
+<app-action-bar class="action-bar"
+                [bntConf]="{new: true, refresh: true}"
+                [titles]="['Eventos de Seguridad', 'Consulta']"
+                (new)="onNuevo()"
+                (refresh)="onActualizar()"
+>
+</app-action-bar>
+<div class="content">
+
+  <app-std-grid
+    [stdColConfig]="this.stdColConfig"
+    [sourceData]="this.sourceData"
+    [userColDefs]="this.colDefs"
+    (editRow)="this.onEditRow($event)"
+    (removeRow)="this.onRemoveRow($event)"
+  >
+  </app-std-grid>
+  <span></span>
+</div>

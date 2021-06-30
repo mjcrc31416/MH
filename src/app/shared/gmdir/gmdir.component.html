@@ -1,0 +1,58 @@
+<!--<div class="container">-->
+
+<!--  <h1>Angular Google Maps with Places Search Example</h1>-->
+
+<!--  <div class="form-group">-->
+<!--    <label>Enter address</label>-->
+<!--    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>-->
+<!--  </div>-->
+
+<!--  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="this.zoom">-->
+<!--    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"-->
+<!--                (dragEnd)="markerDragEnd($event)"></agm-marker>-->
+<!--  </agm-map>-->
+
+<!--  <h5>Address: {{address}}</h5>-->
+<!--  <div>Latitude: {{latitude}}</div>-->
+<!--  <div>Longitude: {{longitude}}</div>-->
+<!--</div>-->
+
+<div class="title">
+  <h3 >Ubicación y Dirección</h3>
+</div>
+
+<div class="content">
+  <div class="form-group">
+<!--    <label>Enter address</label>-->
+    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Buscar dirección cercana" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+  </div>
+
+  <div class="tagcont">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="this.zoom" style="width: 100%; height: 100%;">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                  (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+  </div>
+
+<!--  <mat-label class="cont-dir">{{address}}</mat-label>-->
+  <div class="cont-etiquetas">
+    <span>{{address}}</span>
+    <span>Latitud: {{latitude}}</span>
+    <span>Longitud: {{longitude}}</span>
+  </div>
+
+
+<!--  <div>-->
+<!--    -->
+<!--  </div>-->
+<!--    <h5>Address: {{address}}</h5>-->
+<!--    <div>Latitude: {{latitude}}</div>-->
+<!--    <div>Longitude: {{longitude}}</div>-->
+</div>
+
+<div class="btnset">
+  <button mat-raised-button color="warn" (click)="onElegirDir()">Elegir Dirección</button>
+  <button mat-raised-button color="primary" (click)="onCerrar()" >Cerrar</button>
+</div>
+
+

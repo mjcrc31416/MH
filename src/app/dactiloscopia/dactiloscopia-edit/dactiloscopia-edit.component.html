@@ -1,0 +1,375 @@
+<app-action-bar2
+  #actionBar2Comp
+  [showActions]="this.showActionList"
+  [titles]="this.titlesList"
+  (actionClicked)="onActionClicked($event)"
+  class="span-cols"
+>
+</app-action-bar2>
+<div class="comp-cont">
+  <form [formGroup]="cnspForm">
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Recepción del evento</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+
+  <ng-container formGroupName="mediafiliacion" >
+    <ng-container formGroupName="registro" >
+      <mat-form-field appearance="outline">
+          <mat-label>Folio Evento</mat-label>
+          <input matInput placeholder="Folio Evento"  formControlName="folioInterno">
+        </mat-form-field>
+      </ng-container>
+    </ng-container>
+
+<!--  <mat-form-field appearance="outline">
+          <mat-label>Folio Mediafiliación</mat-label>
+          <input matInput placeholder="Folio Mediafiliación"  formControlName="folio">
+        </mat-form-field>-->
+
+<!--  <mat-form-field>
+        <mat-select placeholder="Tipo de Evento" formControlName="tevento">
+          <mat-option *ngFor="let en of this.tevento" [value]="en" >{{en.tevento}}</mat-option>
+        </mat-select>
+      </mat-form-field>-->
+      <!-- <ng-container formGroupName="mediafiliacion" >
+      <ng-container formGroupName="registro" >
+        <mat-form-field appearance="outline">
+          <mat-label>Asunto</mat-label>
+          <input matInput placeholder="Asunto"  formControlName="asunto">
+        </mat-form-field>
+      </ng-container>
+    </ng-container> -->
+
+    <ng-container formGroupName="mediafiliacion" >
+      <ng-container formGroupName="estatus" >
+        <mat-form-field appearance="outline">
+          <mat-label>Estatus</mat-label>
+          <input matInput placeholder="Estatus"  formControlName="nom">
+        </mat-form-field>
+      </ng-container>
+    </ng-container>
+
+    </mat-card>
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Datos del Detenido</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <ng-container formGroupName="mediafiliacion" >
+        <ng-container formGroupName="registro" >
+            <ng-container formGroupName="datPer" >
+      <mat-form-field appearance="outline">
+          <mat-label>Apellido Paterno</mat-label>
+          <input matInput placeholder="Apellido Paterno"  formControlName="appat">
+        </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Apellido Materno</mat-label>
+          <input matInput placeholder="Apellido Materno"  formControlName="apmat">
+        </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre"  formControlName="nombre">
+        </mat-form-field>
+   
+
+        <mat-form-field appearance="outline" *ngFor="let item of this.eventDocumentList">
+            <mat-label>Alias</mat-label>
+            <input matInput placeholder="Alias"  formControlName="alias">
+            <app-fileitem [fileData]="item" (fileUploaded)="this.onDocsFileUploaded($event)" *ngIf="item.isActive"></app-fileitem>
+          </mat-form-field>
+
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+
+  <ng-container formGroupName="mediafiliacion" >
+    <ng-container formGroupName="registro" >
+        <ng-container formGroupName="datPer" >
+          <mat-form-field>
+            <mat-label>Fecha de Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="fecnac" (ngModelChange)="Edad()">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+        <ng-container formGroupName="mediafiliacion" >
+        <ng-container formGroupName="registro" >
+      <mat-form-field appearance="outline">
+          <mat-label>Edad</mat-label>
+          <input matInput placeholder="Edad"  formControlName="edad">
+        </mat-form-field>
+      </ng-container>
+    </ng-container>
+
+    <ng-container formGroupName="mediafiliacion" >
+      <ng-container formGroupName="registro" >
+          <ng-container formGroupName="datPer" >    
+    <mat-form-field>
+      <mat-select placeholder="Sexo" formControlName="sexo">
+        <mat-option *ngFor="let en of this.sexo" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+</ng-container>
+</ng-container>
+          
+<p></p>    
+
+<ng-container formGroupName="mediafiliacion" >
+  <ng-container formGroupName="registro" >
+      <ng-container formGroupName="datPer" >
+<mat-form-field>
+  <mat-select placeholder="Nacionalidad" formControlName="nacionalidad">
+    <mat-option *ngFor="let en of this.nacionalidad" [value]="en" >{{en.nom}}</mat-option>
+  </mat-select>
+</mat-form-field>
+</ng-container>
+</ng-container>
+</ng-container>
+
+    <ng-container formGroupName="mediafiliacion" >
+      <ng-container formGroupName="registro" >
+        <mat-form-field>
+          <mat-select placeholder="Lugar de Nacimiento" formControlName="lugnacimiento">
+            <mat-option *ngFor="let en of this.lugnacimiento" [value]="en" >{{en.nom}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+          </ng-container>
+        </ng-container>          
+
+<ng-container formGroupName="mediafiliacion" >
+  <ng-container formGroupName="registro" >            
+            <mat-form-field>
+                <mat-select placeholder="Escolaridad" formControlName="escolaridad">
+                  <mat-option *ngFor="let en of this.escolaridad" [value]="en" >{{en.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          
+      <mat-form-field>
+          <mat-select placeholder="Ocupacion" formControlName="ocupacion">
+            <mat-option *ngFor="let en of this.ocupacion" [value]="en" >{{en.nom}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+    <mat-form-field>
+        <mat-select placeholder="Estado Civil" formControlName="edocivil">
+          <mat-option *ngFor="let en of this.edocivil" [value]="en" >{{en.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      </ng-container>
+    </ng-container>
+
+</mat-card>
+
+  <mat-card class="form-cont">
+    <div class="title">
+      <h3>Domicilio del Detenido</h3>
+      <mat-divider></mat-divider>
+    </div>  
+        <ng-container formGroupName="mediafiliacion" >
+        <ng-container formGroupName="registro" >
+            <ng-container formGroupName="domicilio" >
+      <mat-form-field appearance="outline">
+          <mat-label>Calle</mat-label>
+          <input matInput placeholder="Calle"  formControlName="calle">
+        </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Número Interior</mat-label>
+          <input matInput placeholder="Número Interior"  formControlName="numInt">
+        </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Número Exterior</mat-label>
+          <input matInput placeholder="Número Exterior"  formControlName="numero">
+        </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Colonia</mat-label>
+          <input matInput placeholder="Colonia"  formControlName="colonia">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Código Postal</mat-label>
+            <input matInput placeholder="Código Postal"  formControlName="cp">
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Entidad Federativa" formControlName="entidad" [compareWith]="this.compareWithEntidadesFederativas" (selectionChange)="this.onSelectionChangeEntidadFederativa($event)">
+                <mat-option *ngFor="let en of this.entidadesFederativas" [value]="en" >{{en.nomOf}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field>
+              <mat-select placeholder="Municipio" formControlName="municipio" [compareWith]="this.compareWithEntidadesFederativas" >
+                <mat-option *ngFor="let en of this.municipio" [value]="en" >{{en.nomOf}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+        <!-- <ng-container formGroupName="entidad">
+            <mat-form-field>
+              <mat-label>Entidad Federativa</mat-label>
+              <input matInput placeholder="Entidad Federativa" formControlName="nomOf">
+            </mat-form-field>
+            </ng-container>
+        
+            <ng-container formGroupName="municipio">
+              <mat-form-field>
+                <mat-label>Municipio</mat-label>
+                <input matInput placeholder="Municipio" formControlName="nomOf">
+              </mat-form-field>
+              </ng-container> -->
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+    </mat-card>
+
+    <mat-card class="form-cont">
+        <div class="title">
+          <h3>Media Filiación</h3>
+          <mat-divider></mat-divider>
+        </div>
+        <ng-container formGroupName="mediafiliacion" >
+        <ng-container formGroupName="registro" >
+
+        <mat-form-field>
+            <mat-select placeholder="Complexión" formControlName="complexion">
+              <mat-option *ngFor="let en of this.complexion" [value]="en" >{{en.nom}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Color de Piel" formControlName="colpiel">
+              <mat-option *ngFor="let en of this.colpiel" [value]="en" >{{en.nom}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Cantidad Cabello" formControlName="cancabello">
+                <mat-option *ngFor="let en of this.cancabello" [value]="en" >{{en.nom}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Color de Cabello" formControlName="colcabello">
+              <mat-option *ngFor="let en of this.colcabello" [value]="en" >{{en.nom}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Forma de Cabello" formControlName="formcabello">
+              <mat-option *ngFor="let en of this.formcabello" [value]="en" >{{en.nom}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Tipo de Cara" formControlName="tipcara">
+                <mat-option *ngFor="let en of this.tipcara" [value]="en" >{{en.nom}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          <mat-form-field>
+              <mat-select placeholder="Altura de Frente" formControlName="altfrente">
+                <mat-option *ngFor="let en of this.altfrente" [value]="en" >{{en.nom}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+          <mat-form-field>
+              <mat-select placeholder="Ancho de Frente" formControlName="ancfrente">
+                <mat-option *ngFor="let en of this.ancfrente" [value]="en" >{{en.nom}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field>
+                <mat-select placeholder="Color de Ojos" formControlName="colojos">
+                  <mat-option *ngFor="let en of this.colojos" [value]="en" >{{en.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-select placeholder="Forma de Ojos" formControlName="formojos">
+                    <mat-option *ngFor="let en of this.formojos" [value]="en" >{{en.nom}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+      
+              <mat-form-field>
+                  <mat-select placeholder="Tamaño de Ojos" formControlName="tamojos">
+                    <mat-option *ngFor="let en of this.tamojos" [value]="en" >{{en.nom}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+      
+                <mat-form-field>
+                    <mat-select placeholder="Forma de Nariz" formControlName="fornariz">
+                      <mat-option *ngFor="let en of this.fornariz" [value]="en" >{{en.nom}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <mat-select placeholder="Tamaño de Nariz" formControlName="tamnriz">
+                        <mat-option *ngFor="let en of this.tamnriz" [value]="en" >{{en.nom}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+          
+                  <mat-form-field>
+                      <mat-select placeholder="Forma de Labios" formControlName="forlabios">
+                        <mat-option *ngFor="let en of this.forlabios" [value]="en" >{{en.nom}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+          
+            <mat-form-field>
+                <mat-select placeholder="Tamaño de Labios" formControlName="tamlabios">
+                  <mat-option *ngFor="let en of this.tamlabios" [value]="en" >{{en.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-select placeholder="Tipo de Menton" formControlName="menton">
+                    <mat-option *ngFor="let en of this.menton" [value]="en" >{{en.nom}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+      
+              <mat-form-field>
+                  <mat-select placeholder="Forma de Mentón" formControlName="formenton">
+                    <mat-option *ngFor="let en of this.formenton" [value]="en" >{{en.nom}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+      
+                <mat-form-field>
+                    <mat-select placeholder="Inclinación" formControlName="inclinacion">
+                      <mat-option *ngFor="let en of this.inclinacion" [value]="en" >{{en.nom}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+              <mat-form-field>
+                  <mat-select placeholder="Forma de Orejas" formControlName="formorejas">
+                    <mat-option *ngFor="let en of this.formorejas" [value]="en" >{{en.nom}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+      
+              <mat-form-field>
+                  <mat-select placeholder="Tamaño de Orejas" formControlName="tamorejas">
+                    <mat-option *ngFor="let en of this.tamorejas" [value]="en" >{{en.nom}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </ng-container>
+
+      </mat-card>
+
+  </form>
+
+</div>

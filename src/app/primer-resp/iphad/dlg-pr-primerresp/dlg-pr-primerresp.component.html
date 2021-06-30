@@ -1,0 +1,71 @@
+<h3 mat-dialog-title>IPH Admin - Primer respondiente</h3>
+<mat-dialog-content>
+  <mat-tab-group class="tabs" [selectedIndex]="this.defIndex" (selectedIndexChange)="onSelectedIndexChange($event)">
+    <mat-tab label="Buscar primer respondiente">
+      <app-std-grid2
+        #gridPrimerResp
+        style="height: 400px"
+        [stdColConfig]="this.grid1ColConfig"
+        [sourceData]="this.grid1SourceData"
+        [userColDefs]="this.grid1ColDefs"
+        [rowSelection]="'multiple'"
+        (editRow)="this.grid1EditRow($event)"
+      >
+      </app-std-grid2>
+<!--      <mat-card class="grid-c06-01">-->
+<!--        <div class="span-cols title">-->
+<!--          <app-std-grid2-->
+<!--            #gridPrimersResp-->
+<!--            style="height: 300px"-->
+<!--            [stdColConfig]="this.grid1ColConfig"-->
+<!--            [sourceData]="this.grid1SourceData"-->
+<!--            [userColDefs]="this.grid1ColDefs"-->
+<!--            [rowSelection]="'multiple'"-->
+<!--            (editRow)="this.grid1EditRow($event)"-->
+<!--          >-->
+<!--          </app-std-grid2>-->
+<!--        </div>-->
+<!--      </mat-card>-->
+    </mat-tab>
+    <mat-tab label="Agregar datos de primer respondiente">
+      <mat-card class="grid-c06-01" [formGroup]="form">
+        <div class="span-cols title">
+          <h3>Datos del primer repondiente</h3>
+          <mat-divider></mat-divider>
+        </div>
+
+        <!-- NOMBRE DEL DETENIDO =================================== -->
+        <mat-form-field appearance="outline" style="grid-column: 1/3;">
+          <mat-label>Nombres</mat-label>
+          <input matInput placeholder="Nombres" formControlName="nombre" appUppercase>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="grid-column: 3/5;">
+          <mat-label>Apellido paterno</mat-label>
+          <input matInput placeholder="Apellido paterno" formControlName="appat" appUppercase>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="grid-column: 5/-1;">
+          <mat-label>Apellido materno</mat-label>
+          <input matInput placeholder="Apellido materno" formControlName="apmat" appUppercase>
+        </mat-form-field>
+
+        <!-- NOMBRE DEL DETENIDO =========================================== -->
+        <mat-form-field appearance="outline" style="grid-column: 1/3; margin: 0;">
+          <mat-select placeholder="Adscripcion" >
+            <mat-option *ngFor="let en of this.dumbList" [value]="en" >{{en}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="grid-column: 1/3; margin: 0;">
+          <mat-select placeholder="Cargo / Grado" >
+            <mat-option *ngFor="let en of this.dumbList" [value]="en" >{{en}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button (click)="onAgregar()">Agregar</button>
+</mat-dialog-actions>

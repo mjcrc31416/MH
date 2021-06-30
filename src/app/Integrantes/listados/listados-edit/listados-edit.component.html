@@ -1,0 +1,70 @@
+<form [formGroup]="this.form">
+  <mat-card class="content">
+
+    <div class="span-row">
+      <h4>Integrantes</h4>
+      <mat-divider class="span-row"></mat-divider>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="nomIntegrante">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cargo</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="cargo">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Sector" formControlName="sector">
+        <mat-option *ngFor="let en of this.sector" [value]="en">{{en.sector}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Etiquetas Generales" formControlName="inst" required>
+        <mat-option *ngFor="let en of this.inst" [value]="en">{{en.inst}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Entidad Federativa" formControlName="entidad" required>
+        <mat-option *ngFor="let en of this.entidades" [value]="en">{{en.entidad}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-row">
+      <mat-label>Domicilio</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="domicilio" required>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Correo</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="correo">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Teléfonos</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="tel">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Secretari@ particular y/o Privad@</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="secre">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Atendido por parte de la Institución</mat-label>
+      <input matInput placeholder="Placeholder" formControlName="atendido">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+  </mat-card>
+</form>

@@ -1,0 +1,37 @@
+:host {
+  display: grid;
+  padding: 10px;
+}
+
+.grid-c06-01 {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  grid-template-rows: 60px;
+  //grid-template-columns: repeat(auto-fill, minmax(0px, 1fr));
+  //grid-template-columns: repeat(6, minmax(auto, 1fr));
+  grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
+}
+
+.span-cols {
+  grid-column: 1/-1;
+}
+
+.span-cols-03 {
+  grid-column: 1/4;
+}
+
+.span-cols-05-06 {
+  grid-column: 5/6;
+}
+
+.span-cols-01-03 {
+  grid-column: 1/4;
+}
+
+.datetime-cont {
+  display: grid;
+  grid-template-columns: 1fr minmax(100px, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}

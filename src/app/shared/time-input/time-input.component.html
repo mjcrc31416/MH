@@ -1,0 +1,11 @@
+<form [formGroup]="form" class="mcont">
+  <mat-form-field appearance="outline" class="inputcont">
+    <input matInput placeholder="HH" formControlName="hora"  maxlength="2" autocomplete="off" OnlyNumber="true" >
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <span>:</span>
+  <mat-form-field appearance="outline" class="inputcont">
+    <input matInput placeholder="mm" formControlName="minutos"  maxlength="2" autocomplete="off" MinuteNumber="true">
+    <mat-hint></mat-hint>
+  </mat-form-field>
+</form>

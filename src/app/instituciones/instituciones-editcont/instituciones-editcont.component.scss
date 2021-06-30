@@ -1,0 +1,52 @@
+
+:host {
+  display: grid;
+  grid-template-rows: 40px minmax(0,1fr) 10px;
+
+
+  .comp-cont{
+    display: grid;
+    overflow-y:auto;/*added*/
+    min-width: 0px;
+    max-height: 100%;
+
+    .number-cont {
+      display: flex;
+      align-items: center;
+
+      .roman-number-cont {
+        margin-bottom: 10px;
+        margin-left: 15px;
+      }
+    }
+
+
+
+    .form-cont {
+      display: grid;
+      grid-template-columns: minmax(0px,auto) minmax(0px,auto);
+      grid-gap: 20px;
+      align-items: center;
+
+      margin: 10px;
+
+      .title {
+        grid-column: 1/-1;
+
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .span-cols {
+        grid-column: 1/-1;
+      }
+    }
+  }
+}
+
+.card-cont {
+  margin: 10px;
+}
+
+
+

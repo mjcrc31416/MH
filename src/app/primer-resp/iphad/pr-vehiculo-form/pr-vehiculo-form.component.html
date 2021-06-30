@@ -1,0 +1,84 @@
+<form [formGroup]="form">
+  <mat-card class="grid-c06-01">
+    <div class="span-cols title">
+      <h3>Información del vehículo</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+    <!-- FECHA DE LA RECEPCION DEL EVENTO ===================== -->
+    <mat-form-field style="grid-column: 1/4;">
+      <input matInput [matDatepicker]="picker" placeholder="Fecha detencion" formControlName="fechaDetencion">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <app-time-input #timeComp></app-time-input>
+
+    <!-- DATOS GENERALES DEL VEHICULO =================================== -->
+    <mat-form-field appearance="outline" style="grid-column: 1/4; margin: 0;">
+      <mat-select placeholder="Tipo de vehiculo" formControlName="tipoVehi">
+        <mat-option *ngFor="let en of this.vehcTipos" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 4/7; margin: 0;">
+      <mat-select placeholder="Procedencia" formControlName="procedencia">
+        <mat-option *ngFor="let en of this.procedencias" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/3; margin: 0;">
+      <mat-select placeholder="Marca" formControlName="marca">
+        <mat-option *ngFor="let en of this.marcas" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+<!--    <mat-form-field appearance="outline" style="grid-column: 4/7; margin: 0;">-->
+<!--      <mat-select placeholder="Submarca" formControlName="vehiculo">-->
+<!--        <mat-option *ngFor="let en of this.submarcas" [value]="en" >{{en.nom}}</mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+
+    <mat-form-field appearance="outline" style="grid-column: 4/7; margin: 0;">
+      <mat-label>Submarca</mat-label>
+      <input matInput placeholder="Submarca" formControlName="vehiculo" >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/3;">
+      <mat-label>Modelo</mat-label>
+      <input matInput placeholder="Modelo" formControlName="modelo" >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 3/5;">
+      <mat-label>Color</mat-label>
+      <input matInput placeholder="Color" formControlName="color">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 5/7; margin: 0;">
+      <mat-select placeholder="Uso" formControlName="uso" >
+        <mat-option *ngFor="let en of this.usos" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/4;">
+      <mat-label>Placa</mat-label>
+      <input matInput placeholder="Placa" formControlName="placa" >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 4/-1;">
+      <mat-label>No. serie</mat-label>
+      <input matInput placeholder="No. serie" formControlName="numSerie" >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/-1;">
+      <mat-label>Observaciones</mat-label>
+      <textarea matInput placeholder="Observaciones" rows="5" formControlName="observaciones" ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/-1;">
+      <mat-label>Destino que se le dio</mat-label>
+      <textarea matInput placeholder="Destino que se le dio" rows="3" formControlName="destino" ></textarea>
+    </mat-form-field>
+
+  </mat-card>
+</form>

@@ -1,0 +1,23 @@
+<h3 mat-dialog-title>IPH Admin - Primer respondiente</h3>
+<mat-dialog-content>
+  <mat-tab-group class="tabs" >
+    <mat-tab label="Personal">
+      <app-std-grid2
+        #gridPersonal
+        style="height: 400px"
+        [stdColConfig]="this.grid1ColConfig"
+        [sourceData]="this.grid1SourceData"
+        [userColDefs]="this.grid1ColDefs"
+        [rowSelection]="'multiple'"
+        (editRow)="this.grid1EditRow($event)"
+      >
+      </app-std-grid2>
+
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button (click)="onAsignar()">Asignar</button>
+</mat-dialog-actions>

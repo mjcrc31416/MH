@@ -1,0 +1,13 @@
+form {
+  .content {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+
+    margin: 10px;
+  }
+}
+
+.span-row {
+  grid-column: 1/-1;
+}

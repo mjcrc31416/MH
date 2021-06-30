@@ -1,0 +1,16 @@
+<app-action-bar class="action-bar"
+                [bntConf]="{new: true, refresh: true}"
+                [titles]="['Instituciones', 'Consulta']"
+                (new)="onNuevo()"
+                (refresh)="onActualizar()"
+>
+</app-action-bar>
+<div class="content">
+  <ag-grid-angular
+    class="ag-theme-balham"
+    (cellClicked)="onGridCellClicked($event)"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs">
+  </ag-grid-angular>
+</div>
+

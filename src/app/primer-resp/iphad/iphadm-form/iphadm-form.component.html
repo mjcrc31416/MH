@@ -1,0 +1,185 @@
+<form [formGroup]="form">
+  <mat-card class="grid-c06-01" formGroupName="conocimiento">
+    <div class="span-cols title">
+      <h3>Datos de la Emergencia de Seguridad</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+<!--    <mat-form-field appearance="outline" style="grid-column: 1/3; margin: 0;">-->
+<!--      <mat-select placeholder="Conocimiento" formControlName="tipoConocimiento" (selectionChange)="this.onTipoConChanged($event)">-->
+<!--        <mat-option *ngFor="let en of this.conocimientoHechos" [value]="en" >{{en.nom}}</mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+
+    <mat-form-field appearance="outline" style="grid-column: 1/3" class="cust-field" formGroupName="tipoConocimiento">
+      <mat-label>Tipo de Conocimiento</mat-label>
+      <input matInput placeholder="Tipo de Conocimiento" formControlName="nom">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 3/-1" class="cust-field">
+      <mat-label>Otro</mat-label>
+      <input matInput placeholder="Descripción" formControlName="otro">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/4;">
+      <mat-label>Folio Interno</mat-label>
+      <input matInput placeholder="Folio interno del evento de seguridad" formControlName="folioInterno">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 4/-1;">
+      <mat-label>Folio de Emergencia</mat-label>
+      <input matInput placeholder="Número del folio del 9-1-1" formControlName="folio911">
+    </mat-form-field>
+
+  </mat-card>
+
+  <!-- LUGAR DE LA INTERVENCION ======================================================= -->
+  <mat-card class="grid-c06-01" formGroupName="intervencion">
+    <div class="span-cols title">
+      <h3>Lugar de la intervención</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="btn-tool">
+      <button mat-raised-button color="primary"  class="bnt-mapa" (click)="this.showDlgGMaps()" >Ubicar en mapa</button>
+    </div>
+
+    <ng-container formGroupName="ubicacion" >
+    <mat-form-field appearance="outline" style="grid-column: 1/5;">
+      <mat-label>Calle / Tramo carretero</mat-label>
+      <input matInput placeholder="Calle / Tramo carretero" formControlName="calle">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 5/6;">
+      <mat-label>Num. interior</mat-label>
+      <input matInput placeholder="Num. interior" formControlName="numInt">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 6/-1;">
+      <mat-label>Num. exterior</mat-label>
+      <input matInput placeholder="Num. exterior" formControlName="numero">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/5;">
+      <mat-label>Colonia / Localidad</mat-label>
+      <input matInput placeholder="Colonia / Localidad" formControlName="colonia">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 5/-1;">
+      <mat-label>Código postal</mat-label>
+      <input matInput placeholder="Código postal" formControlName="cp">
+    </mat-form-field>
+
+    <ng-container formGroupName="entidad">
+    <mat-form-field appearance="outline" style="grid-column: 1/3;">
+      <mat-label>Entidad</mat-label>
+      <input matInput placeholder="Entidad" formControlName="nomOf">
+    </mat-form-field>
+    </ng-container>
+
+      <ng-container formGroupName="municipio" >
+    <mat-form-field appearance="outline" style="grid-column: 3/-3;">
+      <mat-label>Municipio</mat-label>
+      <input matInput placeholder="Municipio" formControlName="nomOf">
+    </mat-form-field>
+      </ng-container>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/-1;">
+      <mat-label>Referencias</mat-label>
+        <textarea matInput placeholder="Referencias" rows="5" formControlName="referencias"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="grid-column: 1/4;">
+      <mat-label>Latitud</mat-label>
+      <input matInput placeholder="Latitud" formControlName="lat">
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 4/-1;">
+      <mat-label>Londitud</mat-label>
+      <input matInput placeholder="Londitud" formControlName="long">
+    </mat-form-field>
+    </ng-container>
+  </mat-card>
+
+  <!-- NARRATIVA DE LOS HECHOS ========================================================= -->
+
+  <mat-card class="grid-c06-01">
+    <div class="span-cols title">
+      <h3>Narrativa de los hechos</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+    <ng-container formGroupName="narrativa" >
+    <mat-form-field appearance="outline" style="grid-column: 1/-1;">
+      <mat-label>Narrativa de los hechos</mat-label>
+      <textarea matInput placeholder="Relate cronológicamente las acciones realizadas" rows="10" formControlName="narrativa" ></textarea>
+    </mat-form-field>
+    </ng-container>
+  </mat-card>
+
+
+  <!-- DETENIDOS ===================================================================== -->
+  <mat-card class="grid-c06-01">
+    <div class="span-cols title">
+      <h3>Detenidos</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+<!--    <div class="btn-tool">-->
+<!--      <button mat-raised-button color="primary"  class="bnt-mapa" (click)="this.onShowDlgDetenidos($event)">Agregar detenido</button>-->
+<!--    </div>-->
+
+    <div *ngFor="let det of this.form.get('detenidos').value" style="grid-column: 1/-1; border-bottom: 1px solid gainsboro;">
+      <app-iphad-detenido-info-card
+        [idDetenido]="det._id"
+      >
+      </app-iphad-detenido-info-card>
+    </div>
+
+<!--    <div class="span-cols" style="height: 300px">-->
+<!--      <mat-card *ngFor="let det of this.form.get('detenidos').value">-->
+<!--        <p>{{det._id}}</p>-->
+<!--      </mat-card>-->
+<!--&lt;!&ndash;      <app-std-grid2&ndash;&gt;-->
+<!--&lt;!&ndash;        #gridDetenidos&ndash;&gt;-->
+<!--&lt;!&ndash;        style="height: 300px"&ndash;&gt;-->
+<!--&lt;!&ndash;        [stdColConfig]="this.grid1ColConfig"&ndash;&gt;-->
+<!--&lt;!&ndash;        [sourceData]="this.grid1SourceData"&ndash;&gt;-->
+<!--&lt;!&ndash;        [userColDefs]="this.grid1ColDefs"&ndash;&gt;-->
+<!--&lt;!&ndash;        (editRow)="this.grid1EditRow($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;        (removeRow)="this.grid1RemoveRow($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;      >&ndash;&gt;-->
+<!--&lt;!&ndash;      </app-std-grid2>&ndash;&gt;-->
+<!--    </div>-->
+
+  </mat-card>
+
+  <!-- VEHICULOS ===================================================================== -->
+  <mat-card class="grid-c06-01">
+    <div class="span-cols title">
+      <h3>Vehículos</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div *ngFor="let vehi of this.form.get('vehiculos').value" style="grid-column: 1/-1; border-bottom: 1px solid gainsboro;">
+      <app-iphad-vehiculo-info-card
+        [vehi]="vehi"
+      >
+      </app-iphad-vehiculo-info-card>
+    </div>
+
+<!--    <div class="btn-tool">-->
+<!--      <button mat-raised-button color="primary"  class="bnt-mapa" (click)="this.onShowDlgVehiculo($event)">Agregar vehículo</button>-->
+<!--    </div>-->
+
+<!--    <div class="span-cols" style="height: 300px">-->
+<!--      <app-std-grid2-->
+<!--        #grid2-->
+<!--        style="height: 300px"-->
+<!--        [stdColConfig]="this.grid2ColConfig"-->
+<!--        [sourceData]="this.grid2SourceData"-->
+<!--        [userColDefs]="this.grid2ColDefs"-->
+<!--        (editRow)="this.grid2EditRow($event)"-->
+<!--        (removeRow)="this.grid2RemoveRow($event)"-->
+<!--      >-->
+<!--      </app-std-grid2>-->
+<!--    </div>-->
+
+  </mat-card>
+</form>

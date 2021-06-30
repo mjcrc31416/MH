@@ -1,0 +1,35 @@
+<form>
+  <mat-card class="grid-c06-01">
+    <div class="span-cols title">
+      <h3>Datos del primer repondiente</h3>
+      <mat-divider></mat-divider>
+    </div>
+
+    <!-- NOMBRE DEL DETENIDO =================================== -->
+    <mat-form-field appearance="outline" style="grid-column: 1/3;">
+      <mat-label>Nombres</mat-label>
+      <input matInput placeholder="Nombres" >
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 3/5;">
+      <mat-label>Apellido paterno</mat-label>
+      <input matInput placeholder="Apellido paterno" >
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 5/-1;">
+      <mat-label>Apellido materno</mat-label>
+      <input matInput placeholder="Apellido materno" >
+    </mat-form-field>
+
+    <!-- NOMBRE DEL DETENIDO =========================================== -->
+    <mat-form-field appearance="outline" style="grid-column: 1/3; margin: 0;">
+      <mat-select placeholder="Tipo de vehiculo" >
+        <mat-option *ngFor="let en of this.dumbList" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="grid-column: 1/3; margin: 0;">
+      <mat-select placeholder="Cargo / Grado" >
+        <mat-option *ngFor="let en of this.dumbList" [value]="en" >{{en.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </mat-card>
+</form>

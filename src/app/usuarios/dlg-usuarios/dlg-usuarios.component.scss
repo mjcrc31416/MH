@@ -1,0 +1,12 @@
+:host {
+  display: grid;
+}
+
+.form-cont {
+  display: grid;
+  grid-template-columns: minmax(auto,1fr) minmax(auto,1fr);
+}
+
+.span-cols {
+  grid-column: 1/-1;
+}

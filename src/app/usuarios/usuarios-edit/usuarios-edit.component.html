@@ -1,0 +1,99 @@
+<app-action-bar class="action-bar" [titles]="['Usuarios', 'Nuevo']" [bntConf]="{save: true, exit: true}"
+  (exit)="onExit()" (save)="onSave()">
+</app-action-bar>
+
+<div class="comp-cont">
+  <form name="groupForm" #groupForm="ngForm">
+
+    <mat-card class="form-cont" class="form-cont">
+      <div class="title">
+        <h3>Información de usuario</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <mat-form-field appearance="outline" class="span-row">
+        <input matInput placeholder="Correo electrónico" [(ngModel)]="user.correo" name="correo"
+          (ngModelChange)="user.correo = user.correo.toLowerCase()" required>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Tipo Usuario" [(ngModel)]="user.vincular" name="vincular" [compareWith]="this.compareWithEntidadesFederativas" required>
+          <mat-option *ngFor="let en of vincular" [value]="en">{{en.vincular}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <div class="pwd-cont">
+        <mat-form-field appearance="outline" class="pwd-box">
+          <input matInput placeholder="Contraseña" type="password" [(ngModel)]="user.pwd" name="pwd" disabled>
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="setupPwd()" class="pwd-btn">Establecer</button>
+      </div>
+
+      <mat-form-field>
+        <mat-select placeholder="Rol de Usuario" [(ngModel)]="user.tusuario" name="tusuario" [compareWith]="this.compareWithEntidadesFederativas" required>
+          <mat-option *ngFor="let en of this.tusuario" [value]="en">{{en.tusuario}}</mat-option>
+        </mat-select>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="span-row" *ngIf="user.vincular['vincular']=='ALTA'">
+        <input matInput placeholder="Nombre" [(ngModel)]="user.nombre" name="nombre">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-row" *ngIf="user.vincular['vincular']=='ALTA'">
+        <input matInput placeholder="Apellido Paterno" [(ngModel)]="user.appat" name="appat">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-row" *ngIf="user.vincular['vincular']=='ALTA'">
+        <input matInput placeholder="Apellido Materno" [(ngModel)]="user.apmat" name="apmat">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-select placeholder="Tipo" [(ngModel)]="user.tipo" name="tipo" [compareWith]="this.compareWithTipos"  (ngModelChange)="onSelectionChange(user.tipo, 'T', 'UI')">
+          <mat-option *ngFor="let en of tipos" [value]="en">{{en.tipo}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Institución" [(ngModel)]="user.institucion" name="institucion" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(user.institucion, 'I', 'UI')">
+          <mat-option *ngFor="let in of instituciones" [value]="in">{{in.institucion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Sede" [(ngModel)]="user.sede" name="sede" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(user.sede, 'S', 'UI')">
+          <mat-option *ngFor="let se of sedes" [value]="se">{{se.sede}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="user.tipo['tipo']=='MUNICIPAL'">
+        <mat-select placeholder="Municipio" [(ngModel)]="user.municip" name="municip" [compareWith]="this.compareWithTipos">
+          <mat-option *ngFor="let mu of municipios" [value]="mu">{{mu.municip}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+  </mat-card>
+
+    <mat-card class="form-cont" *ngIf="user.vincular['vincular']=='VINCULAR'">
+      <div class="title">
+        <h3>Primer Respondiente</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <app-action-bar class="title" [bntConf]="{new:true}" (new)="newIntegrante()"></app-action-bar>
+      <app-std-grid2 class="title" style="height: 80px" #gridIntes [stdColConfig]="gridIntesColConfig"
+        [sourceData]="policias" [userColDefs]="gridIntesColDefs" (editRow)="gridIntesEditRow($event)"
+        (removeRow)="gridIntesRemoveRow($event)">
+      </app-std-grid2>
+
+    </mat-card>
+
+  </form>
+</div>

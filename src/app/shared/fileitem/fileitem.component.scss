@@ -1,0 +1,27 @@
+:host {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 40px 1fr auto 1fr 100px;
+  grid-auto-flow: column;
+  background-color: #bfbfbf;
+  height: 40px;
+  border-top: solid gray 1px;
+  border-bottom: solid gray 1px;
+  grid-gap: 2px;
+  margin-bottom: 2px;
+  align-items: center;
+
+  font-size: 10pt;
+  font-family: Arial;
+}
+
+.spinner{
+}
+
+.upload-progress{
+  display: flex;
+}
+
+.center-grid-cont {
+  justify-self: center;
+}

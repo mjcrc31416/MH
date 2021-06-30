@@ -1,0 +1,36 @@
+<!--<mat-list>-->
+<!--  <h3 mat-subheader>Folders</h3>-->
+<!--  <mat-list-item *ngFor="let folder of folders">-->
+<!--    <mat-icon mat-list-icon>folder</mat-icon>-->
+<!--    <h4 mat-line>{{folder.name}}</h4>-->
+<!--    <p mat-line> {{folder.updated | date}} </p>-->
+<!--  </mat-list-item>-->
+<!--  <mat-divider></mat-divider>-->
+<!--  <h3 mat-subheader>Notes</h3>-->
+<!--  <mat-list-item *ngFor="let note of notes">-->
+<!--    <mat-icon mat-list-icon>note</mat-icon>-->
+<!--    <h4 mat-line>{{note.name}}</h4>-->
+<!--    <p mat-line> {{note.updated | date}} </p>-->
+<!--  </mat-list-item>-->
+<!--</mat-list>-->
+<!--<mat-list>-->
+<!--  <h3 mat-subheader>Mecanisnmos de Coordinación</h3>-->
+<!--  <mat-nav-list class="nav-item">-->
+<!--    <a mat-list-item [routerLink]="['cnsp-consulta']" class="selected-menu" > Consejo Nacional de Seguridad Pública </a>-->
+<!--  </mat-nav-list>-->
+
+<!--  <mat-divider></mat-divider>-->
+<!--  <h4 mat-subheader>Catálogos</h4>-->
+<!--  <mat-nav-list class="nav-item">-->
+<!--    <a mat-list-item [routerLink]="['instituciones']" >Instituciones</a>-->
+<!--  </mat-nav-list>-->
+<!--</mat-list>-->
+
+<div *ngFor="let item of this.menu" class="menu-cont">
+  <h3>{{item.label}}</h3>
+  <a *ngFor="let submenu of item.submenus" (click)="setSel(submenu)" [ngClass]="{'selected-menu': submenu.isSelected}">{{submenu.label}}</a>
+<!--  <ul>-->
+<!--    <li *ngFor="let submenu of item.submenus"><a>{{submenu.label}}</a></li>-->
+<!--  </ul>-->
+</div>
+

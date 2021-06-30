@@ -1,0 +1,17 @@
+<app-action-bar class="action-bar"
+                [bntConf]="{refresh: true}"
+                [titles]="['Eventos Asignados', 'Seguimiento']"
+                (refresh)="onActualizar()"
+>
+</app-action-bar>
+<div class="content">
+
+  <app-std-grid
+    [stdColConfig]="this.stdColConfig"
+    [sourceData]="this.sourceData"
+    [userColDefs]="this.colDefs"
+    (editRow)="this.onEditRow($event)"
+  >
+  </app-std-grid>
+  <span></span>
+</div>

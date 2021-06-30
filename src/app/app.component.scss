@@ -1,0 +1,97 @@
+:host {
+  margin: 0px;
+  padding: 0px;
+
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto minmax(0,1fr);  
+  grid-template-rows: 0px minmax(0,1fr);
+
+  //.app-toolbar {
+  //  display: grid;
+  //  grid-template-columns: auto auto;
+  //  grid-column: 1/-1;
+  //  align-items: center;
+  //
+  //  background-color: #235b4e;
+  //
+  //  .loader {
+  //    grid-column: 1/-1;
+  //    margin: 0px;
+  //    padding: 0px;
+  //  }
+  //
+  //  .title {
+  //    margin-left: 10px;
+  //    font-family: Arial;
+  //    color: gainsboro;
+  //    font-size: 20px;
+  //  }
+  //
+  //  .botton-set {
+  //    display: flex;
+  //    flex-direction: row;
+  //    justify-content: flex-end;
+  //  }
+  //}
+
+  .loader {
+    grid-column: 1/-1;
+  }
+
+  .app-sidenav {
+    display: grid;
+    grid-template-rows: 80px minmax(0,1fr) 60px;
+    width: 225px;
+    //background-color: black;
+    background-image: url(../assets/side-nav-bg-01.png);
+    background-size: cover;
+
+    .main-logo {
+      //background-image: url(../assets/main-logo.png);
+      //background-size: cover;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .user-info {
+      display: grid;
+      grid-template-columns: 25px minmax(0px,1fr);
+      align-items: center;
+      background-color: black;
+      color: gainsboro;
+      font-size: 10pt;
+      font-family: Arial;
+
+      .user-info-text {
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+    }
+  }
+
+  .app-content {
+    display: grid;
+    grid-template-columns: minmax(0,1fr);
+    grid-template-rows: 0px minmax(0,1fr) 0px;
+    background-color: #f9f9f9;
+
+    //-webkit-box-shadow: -2px 7px 10px 1px rgba(0,0,0,0.42);
+    //box-shadow: -2px 7px 10px 1px rgba(0,0,0,0.42);
+  }
+}
+
+.login-cont {
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 0px minmax(0,1fr) 0px;
+}
+
+

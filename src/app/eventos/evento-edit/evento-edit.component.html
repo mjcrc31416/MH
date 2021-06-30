@@ -1,0 +1,224 @@
+<app-action-bar2
+  #actionBar2Comp
+  [showActions]="this.showActionList"
+  [titles]="this.titlesList"
+  (actionClicked)="onActionClicked($event)"
+  class="span-cols"
+>
+</app-action-bar2>
+<div class="comp-cont">
+  <form name="groupForm" #groupForm="ngForm">
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Recepción del evento</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Número de Incidente 9-1-1:</mat-label>
+        <input matInput placeholder="Placeholder" [(ngModel)]="evento.folio911" name="folio911" appUppercase>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Folio del sistema:</mat-label>
+        <input matInput placeholder="Placeholder" [(ngModel)]="evento.folioInterno" name="folioInterno" [disabled]="true">
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-select placeholder="Tipo" [(ngModel)]="evento.tipo" name="tipo" [compareWith]="this.compareWithTipos"  (ngModelChange)="onSelectionChange(evento.tipo, 'T', 'UI')">
+          <mat-option *ngFor="let en of tipos" [value]="en">{{en.tipo}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Institución" [(ngModel)]="evento.institucion" name="institucion" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(evento.institucion, 'I', 'UI')">
+          <mat-option *ngFor="let in of instituciones" [value]="in">{{in.institucion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Sede" [(ngModel)]="evento.sede" name="sede" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(evento.sede, 'S', 'UI')">
+          <mat-option *ngFor="let se of sedes" [value]="se">{{se.sede}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="evento.tipo['tipo']=='MUNICIPAL'">
+        <mat-select placeholder="Municipio" [(ngModel)]="evento.municip" name="municip" [compareWith]="this.compareWithTipos">
+          <mat-option *ngFor="let mu of municipios" [value]="mu">{{mu.municip}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="evento.tipo['tipo']=='MINISTERIAL'">
+        <mat-select placeholder="Torre" [(ngModel)]="evento.torre" name="torre" [compareWith]="this.compareWithTipos">
+          <mat-option *ngFor="let en of sedes" [value]="en" >{{en.torre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="evento.tipo['tipo']=='MUNICIPAL'">
+        <mat-select placeholder="Torre" [(ngModel)]="evento.torre" name="torre" [compareWith]="this.compareWithTipos">
+          <mat-option *ngFor="let en of municipios" [value]="en" >{{en.torre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </mat-card>
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Datos de la emergencia</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <mat-form-field>
+        <mat-select placeholder="Tipo de Incidente" [(ngModel)]="evento.tincidente" name="tincidente" (selectionChange)="onChgTIncidente($event)" [compareWith]="this.compareWithEntidadesFederativas">
+          <mat-option *ngFor="let en of tincidente" [value]="en" >{{en.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Sub Tipo de Incidente" [(ngModel)]="evento.stincidente" name="stincidente" (selectionChange)="onChgSTIncidente($event)" [compareWith]="this.compareWithEntidadesFederativas">
+          <mat-option *ngFor="let en of stincidente" [value]="en" >{{en.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Incidente" [(ngModel)]="evento.incidente" name="incidente" [compareWith]="this.compareWithEntidadesFederativas">
+          <mat-option *ngFor="let en of incidente" [value]="en" >{{en.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="datetime-cont">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="evento.fecha" name="fecha" placeholder="Fecha" >
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <app-time-input #timeComp></app-time-input>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Nombre del Denunciante</mat-label>
+        <input matInput placeholder="Placeholder" [(ngModel)]="evento.denunciante" name="denunciante" appUppercase>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-cols">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput placeholder="Leave a comment" rows="5" [(ngModel)]="evento.texto" name="texto" appUppercase></textarea>
+        <mat-hint></mat-hint>
+      </mat-form-field>
+
+
+
+    </mat-card>
+
+    <mat-card class="form-cont">
+
+
+
+<!--      <mat-form-field>-->
+<!--        <input matInput [matDatepicker]="picker" placeholder="Fecha" formControlName="fecha">-->
+<!--        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--        <mat-datepicker #picker></mat-datepicker>-->
+<!--      </mat-form-field>-->
+    </mat-card>
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Ubicación de la emergencia</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="card-actionbar span-cols">
+        <button mat-raised-button color="primary" (click)="onElegirGDir()" class="bnt-mapa" >Ubicar en mapa</button>
+      </div>
+
+<!--      <mat-form-field>-->
+<!--        <mat-select placeholder="Colonia" formControlName="colonia">-->
+<!--          <mat-option *ngFor="let en of this.torre" [value]="en" >{{en.torre}}</mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+
+
+        <mat-form-field>
+          <mat-select placeholder="Entidad Federativa" [(ngModel)]="evento.ubicacionEvento.entidad" name="entidad" [compareWith]="this.compareWithEntidadesFederativas" (selectionChange)="this.onSelectionChangeEntidadFederativa($event)">
+            <mat-option *ngFor="let en of entidadesFederativas" [value]="en" >{{en.nomOf}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="Municipio" [(ngModel)]="evento.ubicacionEvento.municipio" name="municipio" [compareWith]="this.compareWithEntidadesFederativas" required>
+            <mat-option *ngFor="let en of municipio" [value]="en" >{{en.nomOf}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Colonia</mat-label>
+          <input matInput placeholder="Colonia" [(ngModel)]="evento.ubicacionEvento.colonia" name="colonia" appUppercase required>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Código Postal</mat-label>
+          <input matInput placeholder="Código Postal" [(ngModel)]="evento.ubicacionEvento.cp" name="cp" required>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Calle</mat-label>
+          <input matInput placeholder="Calle" [(ngModel)]="evento.ubicacionEvento.calle" name="calle" appUppercase required>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Número Exterior</mat-label>
+          <textarea matInput placeholder="Leave a comment" rows="1" [(ngModel)]="evento.ubicacionEvento.numero" name="numero" appUppercase required></textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Número Interior</mat-label>
+          <textarea matInput placeholder="Leave a comment" rows="1" [(ngModel)]="evento.ubicacionEvento.numInt" name="numInt" required></textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Entre</mat-label>
+          <textarea matInput placeholder="Leave a comment" rows="1" [(ngModel)]="evento.ubicacionEvento.entreCalle" name="entreCalle" required></textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Y</mat-label>
+          <textarea matInput placeholder="Leave a comment" rows="1" [(ngModel)]="evento.ubicacionEvento.entreCalle2" name="entreCalle2" required></textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Referencia</mat-label>
+          <textarea matInput placeholder="Referencias visibles de la dirección de la emergencia" rows="5" [(ngModel)]="evento.ubicacionEvento.referencias" name="referencias" appUppercase></textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Latitud</mat-label>
+          <input matInput placeholder="Latitud" [(ngModel)]="evento.ubicacionEvento.lat" name="lat">
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-row">
+          <mat-label>Longitud</mat-label>
+          <input matInput placeholder="Longitud" [(ngModel)]="evento.ubicacionEvento.long" name="long">
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+    </mat-card>
+  </form>
+
+</div>

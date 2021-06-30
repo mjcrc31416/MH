@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>IPH Admin - Vehículo</h3>
+<mat-dialog-content>
+  <app-pr-vehiculo-form #vehiComp></app-pr-vehiculo-form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button (click)="onAgregar()">Agregar</button>
+</mat-dialog-actions>

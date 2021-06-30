@@ -1,0 +1,57 @@
+@import "~src/assets/app-fonts";
+
+:host {
+  overflow: auto;
+  > a {
+    @extend %side-nav-item;
+  }
+  //background-color: black !important;
+
+  h3 {
+    color: #bfbfbf;
+    font-family: Arial;
+    font-size: 10pt;
+    margin-left: 5px;
+  }
+
+  .menu-cont {
+    display: grid;
+    grid-gap: 10px;
+    border-bottom: 1px #404040 solid;
+
+    a {
+      padding-left: 12px;
+      cursor: pointer;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    a:hover {
+      background-color: #bfbfbf;
+      color: #404040;
+    }
+  }
+}
+
+
+mat-nav-list {
+  @extend %side-nav-item;
+
+}
+
+a {
+  @extend %side-nav-item;
+  color: white !important;
+}
+
+.nav-item{
+  @extend %side-nav-item;
+}
+
+.selected-menu {
+  background-color: #f9f9f9;
+  color: #404040 !important;
+  > * {
+    color: #404040 !important;
+  }
+}

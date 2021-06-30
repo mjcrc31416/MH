@@ -1,0 +1,11 @@
+<app-action-bar class="action-bar"
+                [titles]="['Instituciones', 'Nuevo']"
+                [bntConf]="{save: true, exit: true}"
+                (exit)="onExit()"
+                (save)="onSave()"
+>
+</app-action-bar>
+
+<div class="comp-cont">
+  <app-instituciones-edit></app-instituciones-edit>
+</div>

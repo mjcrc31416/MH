@@ -372,7 +372,7 @@ async function getDetenidos (tipo, inst, sede, mun) {
                 }
               }
             ]
-    );
+    ).limit(70);
   }catch (e) {
     console.log('getDetenidos: Error ');
     console.log(e);
@@ -423,7 +423,7 @@ async function getDetenciones (id) {
             }
           }
         ]
-      );
+      ).limit(70);
     }
   catch (e) {
     console.log('getDetenciones: Error ');
@@ -431,7 +431,7 @@ async function getDetenciones (id) {
   }
 
   try{
-    resp2 = await Detenidos.findOne({_id: id});
+    resp2 = await Detenidos.findOne({_id: id}).limit(70);
     /*
     resp2 = await Detenidos.aggregate(
       [
@@ -536,7 +536,7 @@ async function getDetdactil (tipo, inst, sede, mun) {
           }
         }
       ]
-    );
+    ).limit(70);
   }catch (e) {
     console.log('getdetdactil: Error ');
     console.log(e);
@@ -587,7 +587,7 @@ async function getDetdactiloscopias (id) {
             }
           }
         ]
-      );
+      ).limit(70);
     }
   catch (e) {
     console.log('getDetdactiloscopias: Error ');
@@ -613,7 +613,7 @@ async function getDetdactiloscopias (id) {
           }
         }
       ]
-    );
+    ).limit(70);
   }
 catch (e) {
   console.log('getDetdactiloscopias: Error ');
@@ -692,7 +692,7 @@ async function getDetregistros (tipo, inst, sede, mun) {
                 }
               }
             ]
-    );
+    ).limit(70);
   }catch (e) {
     console.log('getDetregistros: Error ');
     console.log(e);

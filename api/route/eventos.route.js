@@ -9,6 +9,7 @@ let Reporta = require('../model/reporta.model');
 let Eventos = require('../model/eventos.model');
 let Corps = require('../model/corporacion/copr.model');
 let NewModel = require('../model/iph-admin/pre-iph-admin.model');
+const { response } = require('express');
 const EventosMapper = require('../model/eventos/mappers/eventos-mapper').EventosMapper;
 
 
@@ -143,7 +144,7 @@ router.route('/get').get(function (req, res) {
   console.log('entro');
   let fnMain = async (req,res) => {
     try {
-      let response = await getEventos(req.query.tipo, req.query.inst, req.query.sede, req.query.mun);
+      let response = await getEventos(req.query.tipo, req.query.inst, req.query.sede, req.query.mun, req.query.pageIndex, req.query.pageSize);
       //console.log(response);
       res.status(200).send(response);
     } catch (error){
@@ -154,17 +155,25 @@ router.route('/get').get(function (req, res) {
   fnMain(req, res);
 });
 
-async function getEventos (tipo, inst, sede, mun) {
+async function getEventos (tipo, inst, sede, mun, page, perPage) {
   console.log('getEventos: init');
   console.log(tipo);
   console.log(inst);
   console.log(sede);
   console.log(mun);
 
+  let resp = null
+  let count = null
+
   try{
+    page = page ? Number(page):0
+    perPage = perPage ? Number(perPage):25
+
+    let skip = page > 0 ? ((page - 1) * perPage):0
+
     resp = await Eventos.aggregate(
       [
-        {
+        { 
           $sort: {
             'fecha': -1
           }
@@ -177,23 +186,42 @@ async function getEventos (tipo, inst, sede, mun) {
             'municip.cve': mun
           }
         }
-        //   {
-        //   '$project': {
-        //     'nincidente': '$nincidente',
-        //     'reporta': '$reporta.nombre',
-        //     'atende': '$atiende.atiende',
-        //     'incidente': '$incidente.incidente',
-        //     'municipio': '$municipio.municipio'
+      ]
+    ).skip(skip).limit(perPage);
+      
+    count = await Eventos.aggregate(
+      [
+        {
+          '$match': {
+            'tipo.cve': tipo,
+            'institucion.cve': inst,
+            'sede.cve': sede,
+            'municip.cve': mun
+          }
+        },
+        { $group: { _id: "folioInterno", count: { $sum: 1 } } }
+        // {
+        //   $group: {
+        //     _id: null,
+        //     myCount: {
+        //       $sum: 1
+        //     }
         //   }
         // }
       ]
     );
+
   }catch (e) {
     console.log('getEventos: Error ');
     console.log(e);
   }
 
-  return resp;
+  let result = {
+    "data": resp,
+    "total": count[0].count
+  }
+console.log(result)
+  return result;
 }
 
 // FUNCION REVOMER GRID
@@ -355,8 +383,7 @@ async function getEvento (tipo, inst, sede, mun) {
             'localField': 'idEvento', 
             'foreignField': '_id', 
             'as': 'eventos'
-          },
-          
+          },          
         }, 
         {
           '$match': {
@@ -383,7 +410,7 @@ async function getEvento (tipo, inst, sede, mun) {
             'ultimaMod': '$conocimiento.ultimaMod'
           }
         }
-      ]);
+      ])
         } catch (e) {
           console.log('preIphGetByIdEv: Error ');
           console.log(e);

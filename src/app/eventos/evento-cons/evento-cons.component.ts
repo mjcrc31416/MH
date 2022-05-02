@@ -9,6 +9,10 @@ import {MatSnackBar} from '@angular/material';
 import {MatDialog} from '@angular/material';
 import * as moment from 'moment';
 import { LoginService } from '../../services/login.service';
+import { ValueGetterParams } from 'ag-grid-community';
+import {AgGridModule} from "ag-grid-angular/main";
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 
 @Component({
@@ -20,12 +24,17 @@ export class EventoConsComponent implements OnInit {
   @ViewChild(StdGridComponent, {static: false})
   private stdGrid: StdGridComponent;
 
-  SNACKBAR_STD_DURATION = 3500;
-  refreshActive = false;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+//  private cacheOverFlowSize;
+
+SNACKBAR_STD_DURATION = 3500;
+refreshActive = false;
 
   // Std Grid fields -----------------------------------------
   sourceData = [];
   colDefs = [
+    // { headerName: 'ID', valueGetter: (args) => this._getIdValue(args), width: 100 },
     {headerName: 'Folio Interno', field: 'folioInterno', width: 200, filter: true },
     {headerName: 'Fecha del evento', width: 125 , field: 'fecha', cellRenderer: (data) => {
         if (!_.isNil(data) && !_.isNil(data.value)) {
@@ -36,9 +45,9 @@ export class EventoConsComponent implements OnInit {
         }
       }
     },
-    {headerName: 'Tipo de Incidente', field: 'tincidente.nom', width: 200, filter: true},
+    {headerName: 'Tipo de Incidente', field: 'tincidente.nom', width: 200, resizable: true},
     {headerName: 'Estatus', field: 'estatus.nom'},
-    {headerName: 'Asignado', width: 125 , field: 'fechaAsignacion', cellRenderer: (data) => {
+    {headerName: 'Asignado', width: 125, resizable: true, field: 'fechaAsignacion', cellRenderer: (data) => {
         if (!_.isNil(data) && !_.isNil(data.value)) {
           const ret: string = moment(data.value).format('DD/MM/YYYY HH:mm');
           return ret;
@@ -48,15 +57,24 @@ export class EventoConsComponent implements OnInit {
       }
     },
     {headerName: 'Municipio', field: 'ubicacionEvento.municipio.nomOf'},
-    {headerName: 'Colonia', field: 'ubicacionEvento.colonia'},
+    {headerName: 'Colonia', field: 'ubicacionEvento.colonia', resizable: true},
     {headerName: 'Calle', field: 'ubicacionEvento.calle'},
     {headerName: 'Número', field: 'ubicacionEvento.numero'},
+
   ];
+
   stdColConfig = {
     edit: true,
-    remove: true
+    remove: true,
+    pagination: true
   };
+
   tipo: any;
+  info: any;
+  total: any = 0;
+  rowData: any;
+  data: any;
+
   
   constructor( 
     private router: Router,
@@ -66,24 +84,45 @@ export class EventoConsComponent implements OnInit {
     private snackBar: MatSnackBar
     )
   {
-    // this.subs.add(
-    //   this.terminalSrv.eventSource$.subscribe((data) => {
-    //       this.dispatchEvents(data);
-    //     }
-    //   ));
       
   }
+
+  // _getIdValue(args: ValueGetterParams): any {
+  //   return (Number(args.node.id)) + 1;
+  // }
 
   ngOnInit() {
     
     this.tipo = this.service.getUser().tipo.cve
-    console.log(this.tipo);
-    this.eventoSrv.getEventos(this.tipo).then( (data: any) => {
-      this.stdGrid.setNewData(data);
-      console.log(data);
+
+    this.consult(0,25)
+
+}
+
+  consult(pageIndex, PageSize) {
+    this.eventoSrv.getEventos(this.tipo,pageIndex,PageSize).then( (data: any) => {
+      this.stdGrid.setNewData(data.data);
+      this.total=data.total
     });
 
-    // this.terminalSrv.getTerminal();
+  }
+
+  changePage(event) {
+    this.consult(event.pageIndex, event.pageSize)
+  }
+
+  // public changePagesize(total: number, info: Object): void {
+
+  //   this.info = {};
+  //   this.info = this.consult(0,10)
+
+  //   this.total =  this.info;
+  //   console.log(this.total);
+  //   console.log('total');
+  // }
+
+  ngAfterViewInit() {
+    
   }
 
   onEditRow(data) {
@@ -110,7 +149,7 @@ export class EventoConsComponent implements OnInit {
   
     onActualizar() {
       if (!this.refreshActive) {
-        this.eventoSrv.getEventos(this.tipo).then( (data) => {
+        this.eventoSrv.getEventos(this.tipo,0, 25).then( (data) => {
           this.stdGrid.setNewData(data);
         });
       }
@@ -122,9 +161,6 @@ export class EventoConsComponent implements OnInit {
       duration: this.SNACKBAR_STD_DURATION
     });
   }
-
-
-
 
 
 
@@ -285,9 +321,9 @@ export class EventoConsComponent implements OnInit {
     
   //   //   Evento para el catáogo de Reportas
   //   if (data.event === EventoEvents.GetEventos) {
-  //     console.log(data);
+  //     console.log(datsetDataSourcea);
   //     //this.rowData = data.data;
-  //     this.grid1.setDataSource(data.data);
+  //     this.grid1.(data.data);
   //   }
   // }
 

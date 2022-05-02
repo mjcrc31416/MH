@@ -8,6 +8,7 @@ module.exports = {
 
 const mongoose = require('mongoose');
 const UsuarioAsignaciones = require('../model/common/usuario-asignaciones.model');
+const VWAsignaciones = require('../model/common/vw-asignaciones.model');
 const _ = require('lodash');
 
 async function asignarEvento(idEvento, idUsuario) {
@@ -86,7 +87,8 @@ async function updateWithClientData(clientData) {
         console.log("updateWithClientData (1)");
         console.log(clientData);
         // Obtener información del usuario
-        let userData = await UsuarioAsignaciones.findOne({idUsr: clientData.idUsr}, null, {lean: true}).exec();
+        //let userData = await UsuarioAsignaciones.findOne({idUsr: clientData.idUsr}, null, {lean: true}).exec();
+        let userData = await VWAsignaciones.findOne({idUsr: clientData.idUsr}, null, {lean: true}).exec();
         console.log(userData);
 
         // Si no existe en la base de datos, retornar un error

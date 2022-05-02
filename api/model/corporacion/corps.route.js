@@ -1568,7 +1568,7 @@ async function getUsuars (tipo, inst, sede, mun) {
           }
         }
       ]
-    );
+    ).limit(70);
   }catch (e) {
     console.log('getUsuars: Error ');
     console.log(e);

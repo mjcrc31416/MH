@@ -10,6 +10,7 @@ export class StdGridComponent implements OnInit, AfterContentInit {
   @Input() sourceData;
   @Input() userColDefs;
   @Input() stdColConfig;
+  @Input() enableRangeSelection;
 
   @Output() editRow = new EventEmitter<any>();
   @Output() removeRow = new EventEmitter<any>();

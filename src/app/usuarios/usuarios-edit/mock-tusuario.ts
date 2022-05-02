@@ -14,5 +14,9 @@ export const TUSUARIO = [
   {
     tusuario: 'PRIMER RESPONDIENTE',
     cve: 4
+  },
+  {
+    tusuario: 'CENTRAL DE RADIO',
+    cve: 5
   }
 ];

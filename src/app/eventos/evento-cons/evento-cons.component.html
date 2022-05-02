@@ -6,14 +6,36 @@
 >
 </app-action-bar>
 <div class="content">
-
   <app-std-grid
     [stdColConfig]="this.stdColConfig"
     [sourceData]="this.sourceData"
     [userColDefs]="this.colDefs"
     (editRow)="this.onEditRow($event)"
     (removeRow)="this.onRemoveRow($event)"
+    
   >
-  </app-std-grid>
+    </app-std-grid>
+    <mat-paginator #paginator [length]="total" [pageSizeOptions]="[2, 4, 6, 25]" [pageSize]="25" (page)="changePage($event)" 
+    showFirstLastButtons></mat-paginator>
+
+  <!-- <app-std-grid
+    [stdColConfig]="this.stdColConfig"
+    [sourceData]="this.sourceData"
+    [userColDefs]="this.colDefs"
+    (editRow)="this.onEditRow($event)"
+    [pagination]="true"
+    (removeRow)="this.onRemoveRow($event)"
+  >
+  </app-std-grid> -->
+  <!-- <ag-grid-angular 
+	class="ag-theme-balham"
+	[rowData]="rowData" 
+	[columnDefs]="this.colDefs"
+  (editRow)="this.onEditRow($event)"
+  [pagination]="true"
+  [paginationAutoPageSize]="true"
+  (removeRow)="this.onRemoveRow($event)">
+</ag-grid-angular> -->
+
   <span></span>
 </div>

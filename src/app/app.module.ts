@@ -90,6 +90,8 @@ import { IphadDetenidoInfoCardComponent } from './primer-resp/iphad-detenido-inf
 import { IphadVehiculoInfoCardComponent } from './primer-resp/iphad-vehiculo-info-card/iphad-vehiculo-info-card.component';
 import { RegistroComponent } from './registro/registro.component';
 import { DetRegistroConsComponent } from './primer-resp/iphad/detregistro-cons/detregistro-cons.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table' 
 
 
 export function azureBlobStorageFactory(): IBlobStorage {
@@ -188,6 +190,8 @@ export function azureBlobStorageFactory(): IBlobStorage {
     MatDialogModule,
     MatProgressBarModule,
     MatTabsModule,
+    MatPaginatorModule,
+    MatTableModule,
     HttpClientModule,
     MatSnackBarModule,
     MatAutocompleteModule,
@@ -195,8 +199,9 @@ export function azureBlobStorageFactory(): IBlobStorage {
     MatProgressSpinnerModule,
     MatBottomSheetModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyACOXGkOq_0Iopu9nwbcM7xnEuXoGHc5SA',
-      //apiKey: 'AIzaSyBWTnkj1VNKsaN00767CcdrJNbhBgY8ubo',
+      //apiKey: 'AIzaSyACOXGkOq_0Iopu9nwbcM7xnEuXoGHc5SA',
+      //apiKey: 'AIzaSyACOXGkOq_0Iopu9nwbcM7xnEuXoGHc5SA',
+      apiKey: 'AIzaSyBWTnkj1VNKsaN00767CcdrJNbhBgY8ubo',
 
       libraries: ['places']
     })

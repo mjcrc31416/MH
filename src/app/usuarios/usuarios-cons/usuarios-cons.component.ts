@@ -23,10 +23,20 @@ export class UsuariosConsComponent implements OnInit {
   sourceData = [];
   colDefs = [
     {headerName: 'Correo', field: 'correo', width: 200, filter: true},
-    {headerName: 'Nombre', field: 'nombreCompleto', with: 150},
+    {
+    headerName: 'Nombre', field: 'nombreCompleto', with: 250,
+    cellRenderer: (params) => {
+      if (params.value) {
+        return params.value
+      } else {
+        return params.data.nombre
+      }
+    }
+  },
+    //{headerName: 'Nombre', field: 'nombreCompleto', with: 150},
     // {headerName: 'Nombre', field: 'nombre',with: 150},
     {headerName: 'Tipo de Usuario', field: 'tusuario', width: 200},
-    {headerName: 'Institución', field: 'institucion', width: 500},
+    {headerName: 'Institución', field: 'institucion', width: 350},
     {headerName: 'Sede', field: 'sede', width: 250}
   ];
   stdColConfig = {

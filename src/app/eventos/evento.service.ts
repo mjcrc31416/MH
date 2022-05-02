@@ -127,14 +127,14 @@ export class EventoService {
   public async getEvento(tipo) {
     let response = null;
     console.log(response);
-    
+
     try {
       if (tipo == '02') {
         return this.http.get(`${this.uri}/eventos/getevento?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve).toPromise();
       } else if (tipo !== '02') {
         return this.http.get(`${this.uri}/eventos/getevento?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
       }
-        
+
     } catch (e) {
       this.log.show('Error');
     }
@@ -144,20 +144,20 @@ export class EventoService {
           });
           console.log(response);
     return response;
-    
+
   }
 
-  public async getEventos(tipo) {
+  public async getEventos(tipo, pageIndex, pageSize) {
     let response = null;
     console.log(response);
-    
+
     try {
-      if (tipo == '02') {console.log('A');
-        return this.http.get(`${this.uri}/eventos/get?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve).toPromise();
+      if (tipo == '02') {
+        return this.http.get(`${this.uri}/eventos/get?tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       } else if (tipo !== '02') {console.log('B');
-        return this.http.get(`${this.uri}/eventos/get?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
+        return this.http.get(`${this.uri}/eventos/get?tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       }console.log('C');
-        
+
     } catch (e) {
       this.log.show('Error');
     }
@@ -167,12 +167,12 @@ export class EventoService {
           });
           console.log(response);
     return response;
-    
+
   }
 
   // public async getEventos() {
   //   let response = null;
-    
+
   //   try {
   //     response = await this.http.get(`${this.uri}/eventos/get?ent=`+this.service.getUser().entidad.entidad).toPromise();
   //   } catch (e) {

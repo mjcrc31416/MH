@@ -104,7 +104,7 @@ export class SideNavComponent implements OnInit {
             ]
           }
         ];
-      } else if (user.tusuario.tusuario == 'PRIMER RESPONDIENTE') {
+      } else if (user.tusuario.tusuario == 'CENTRAL DE RADIO') {
         this.menu = [
           {
             label: 'JUSTICIA CÍVICA',
@@ -118,7 +118,15 @@ export class SideNavComponent implements OnInit {
                 label: 'Primer Respondiente',
                 componentLink: 'preiph-cons',
                 isSelected: false
-              },
+              }
+            ]
+          },
+        ];
+      } else if (user.tusuario.tusuario == 'PRIMER RESPONDIENTE') {
+        this.menu = [
+          {
+            label: 'JUSTICIA CÍVICA',
+            submenus: [
               {
                 label: 'Registro Objetos Personales',
                 componentLink: 'detregistro-cons',

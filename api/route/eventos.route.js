@@ -169,7 +169,7 @@ async function getEventos (tipo, inst, sede, mun, page, perPage) {
     page = page ? Number(page):0
     perPage = perPage ? Number(perPage):25
 
-    let skip = page > 0 ? ((page - 1) * perPage):0
+    let skip = page > 0 ? (page * perPage):0
 
     resp = await Eventos.aggregate(
       [

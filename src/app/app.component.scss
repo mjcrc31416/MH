@@ -42,19 +42,19 @@
   .app-sidenav {
     display: grid;
     grid-template-rows: 80px minmax(0,1fr) 60px;
-    width: 225px;
+    width: 270px;
     //background-color: black;
-    background-image: url(../assets/side-nav-bg-01.png);
+    background-image: url(../assets/imgs/side-nav-bg-01.png);
     background-size: cover;
 
     .main-logo {
-      //background-image: url(../assets/main-logo.png);
-      //background-size: cover;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      background-image: url(../assets/imgs/main-logo.png);
+      background-size: 7cm 2.2cm;
+      padding-top: 0cm;
+      padding-bottom: 0cm;
       img {
-        width: 100%;
-        height: 100%;
+        width: 0%;
+        height: 0%;
       }
     }
 

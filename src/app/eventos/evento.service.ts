@@ -124,15 +124,15 @@ export class EventoService {
   }
 
 
-  public async getEvento(tipo) {
+  public async getEvento(tipo, pageIndex, pageSize) {
     let response = null;
     console.log(response);
 
     try {
       if (tipo == '02') {
-        return this.http.get(`${this.uri}/eventos/getevento?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve).toPromise();
+        return this.http.get(`${this.uri}/eventos/getevento?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       } else if (tipo !== '02') {
-        return this.http.get(`${this.uri}/eventos/getevento?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
+        return this.http.get(`${this.uri}/eventos/getevento?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       }
 
     } catch (e) {

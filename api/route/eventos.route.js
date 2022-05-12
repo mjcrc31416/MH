@@ -296,62 +296,13 @@ router.route('/getByEstatus').post(function (req, res) {
   fnMain(req, res);
 });
 
-// async function getEventoByEstatus (data) {
-//   console.log('getByEstatus: init');
-
-//   let resp = null;
-
-//   try{
-//     // resp = await Eventos.find({}).exec();
-//     resp = await Eventos.aggregate(
-//       [
-//         {
-//           $sort: {
-//             'fecha': -1
-//           }
-//         },
-//         {
-//           $match:{
-//             $or: [{
-//                 'estatus.cve': 2
-//               },
-//               {
-//                 'estatus.cve': 3
-//               },
-//               {
-//                 'estatus.cve': 4
-//               }
-//             ]
-//           }
-//         }
-//         // {
-//         // '$project': {
-//         //   // 'nincidente': '$nincidente',
-//         //   // 'reporta': '$reporta.nombre',
-//         //   // 'atende': '$atiende.atiende',
-//         //   // 'incidente': '$incidente.incidente',
-//         //   // 'municipio': '$municipio.municipio'
-//         // }
-//         // }
-//       ]
-//     );
-
-//   }catch (e) {
-//     console.log('upsertEvento: Error ');
-//     console.log(e);
-//   }
-
-//   return resp;
-// }
-
-
 // ================================================================
 // CARGA GRID EVENTOS=========================================================
 router.route('/getevento').get(function (req, res) {
   console.log('entro');
   let fnMain = async (req,res) => {
     try {
-      let response = await getEvento(req.query.tipo, req.query.inst, req.query.sede, req.query.mun);
+      let response = await getEvento(req.query.tipo, req.query.inst, req.query.sede, req.query.mun, req.query.pageIndex, req.query.pageSize);
       console.log(response);
       res.status(200).send(response);
     } catch (error){
@@ -362,44 +313,46 @@ router.route('/getevento').get(function (req, res) {
   fnMain(req, res);
 });
 
-async function getEvento (tipo, inst, sede, mun) {
+async function getEvento (tipo, inst, sede, mun, page, perPage) {
   console.log('getEvento: init');
   console.log(tipo);
   console.log(inst);
   console.log(sede);
   console.log(mun);
 
+  let resp = null
+  let count = null
+
   try{
+
+    page = page ? Number(page):0
+    perPage = perPage ? Number(perPage):25
+
+    let skip = page > 0 ? (page * perPage):0
+
     resp = await NewModel.aggregate(
       [
-        {
-          $sort: {
-            'fecha': -1
-          }
-        },
         {
           '$lookup': {
             'from': 'eventos', 
             'localField': 'idEvento', 
             'foreignField': '_id', 
             'as': 'eventos'
-          },          
-        }, 
-        {
-          '$match': {
-            'eventos.tipo.cve': tipo,
-            'eventos.institucion.cve': inst,
-            'eventos.sede.cve': sede,
-            'eventos.municip.cve': mun
           }
         },
+        {
+        '$match': {
+          'eventos.tipo.cve': tipo,
+          'eventos.institucion.cve': inst,
+          'eventos.sede.cve': sede,
+          'eventos.municip.cve': mun
+        }
+      },
         {
           '$unwind': {
             'path': '$eventos'
-            // 'includeArrayIndex': 'idEvento'
           }
-        },
-        {
+        }, {
           '$project': {
             'folioInterno': '$conocimiento.folioInterno', 
             'folio911': '$conocimiento.folio911', 
@@ -409,14 +362,102 @@ async function getEvento (tipo, inst, sede, mun) {
             'asignado': '$eventos.aceptado.fechaArribo', 
             'ultimaMod': '$conocimiento.ultimaMod'
           }
-        }
-      ])
+        }, {
+          '$sort': {
+            'folioInterno': -1
+          }
+        },
+        // {
+        //   $sort: {
+        //     'ultimaMod': 1
+        //   }
+        // },
+        // {
+        //   '$lookup': {
+        //     'from': 'eventos', 
+        //     'localField': 'idEvento', 
+        //     'foreignField': '_id', 
+        //     'as': 'eventos'
+        //   },          
+        // }, 
+        // {
+        //   '$match': {
+        //     'eventos.tipo.cve': tipo,
+        //     'eventos.institucion.cve': inst,
+        //     'eventos.sede.cve': sede,
+        //     'eventos.municip.cve': mun
+        //   }
+        // },
+        // {
+        //   '$unwind': {
+        //     'path': '$eventos'
+        //     // 'includeArrayIndex': 'idEvento'
+        //   }
+        // },
+        // {
+        //   '$project': {
+        //     'folioInterno': '$conocimiento.folioInterno', 
+        //     'folio911': '$conocimiento.folio911', 
+        //     'tincidente': '$eventos.tincidente.nom', 
+        //     'estatus': '$estatus.nom', 
+        //     'fecha': '$eventos.fecha', 
+        //     'asignado': '$eventos.aceptado.fechaArribo', 
+        //     'ultimaMod': '$conocimiento.ultimaMod'
+        //   }
+        // }
+      ]).skip(skip).limit(perPage);
+      
+      count = await NewModel.aggregate(
+        [
+            {
+              '$lookup': {
+                'from': 'eventos', 
+                'localField': 'idEvento', 
+                'foreignField': '_id', 
+                'as': 'eventos'
+              }
+            },
+            {
+            '$match': {
+              'eventos.tipo.cve': tipo,
+              'eventos.institucion.cve': inst,
+              'eventos.sede.cve': sede,
+              'eventos.municip.cve': mun
+            }
+          },
+            {
+              '$unwind': {
+                'path': '$eventos'
+              }
+            }, {
+              '$project': {
+                'folioInterno': '$conocimiento.folioInterno', 
+                'folio911': '$conocimiento.folio911', 
+                'tincidente': '$eventos.tincidente.nom', 
+                'estatus': '$estatus.nom', 
+                'fecha': '$eventos.fecha', 
+                'asignado': '$eventos.aceptado.fechaArribo', 
+                'ultimaMod': '$conocimiento.ultimaMod'
+              }
+            }, {
+              '$sort': {
+                'folioInterno': -1
+              }
+            },
+            { $group: { _id: "folioInterno", count: { $sum: 1 } } }
+          ]
+      );
         } catch (e) {
           console.log('preIphGetByIdEv: Error ');
           console.log(e);
         }
 
-  return resp;
+        let result = {
+          "data": resp,
+          "total": count[0].count
+        }
+      console.log(result)
+        return result;
 }
 
 module.exports = router;

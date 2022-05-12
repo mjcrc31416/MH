@@ -83,7 +83,6 @@
         <mat-form-field appearance="outline" *ngFor="let item of this.eventDocumentList">
             <mat-label>Alias</mat-label>
             <input matInput placeholder="Alias"  formControlName="alias">
-            <app-fileitem [fileData]="item" (fileUploaded)="this.onDocsFileUploaded($event)" *ngIf="item.isActive"></app-fileitem>
           </mat-form-field>
 
       </ng-container>

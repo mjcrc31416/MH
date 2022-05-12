@@ -21,6 +21,8 @@ export class IphadEvenConsComponent implements OnInit, OnDestroy, AfterViewInit 
 
   private subs: Subscription = new Subscription();
 
+  total: any = 0;
+
   SNACKBAR_STD_DURATION = 3500;
   refreshActive = false;
 
@@ -77,15 +79,31 @@ export class IphadEvenConsComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngOnInit() {
-    
+
     this.tipo = this.service.getUser().tipo.cve
-    console.log(this.tipo);
-    this.eventoSrv.getEvento(this.tipo).then( (data: any) => {
-      this.stdGrid.setNewData(data);
-      console.log(data);
-    });
+
+    this.consult(0,25)
+    
+    // this.tipo = this.service.getUser().tipo.cve
+    // console.log(this.tipo);
+    // this.eventoSrv.getEvento(this.tipo).then( (data: any) => {
+    //   this.stdGrid.setNewData(data);
+    //   console.log(data);
+    // });
 
     // this.terminalSrv.getTerminal();
+  }
+
+  consult(pageIndex, PageSize) {
+    this.eventoSrv.getEvento(this.tipo,pageIndex,PageSize).then( (data: any) => {
+      this.stdGrid.setNewData(data.data);
+      this.total=data.total
+    });
+
+  }
+
+  changePage(event) {
+    this.consult(event.pageIndex, event.pageSize)
   }
 
   ngOnDestroy(): void {
@@ -98,7 +116,7 @@ export class IphadEvenConsComponent implements OnInit, OnDestroy, AfterViewInit 
     setTimeout( () => {
       this.tipo = this.service.getUser().tipo.cve
       console.log(this.tipo);
-      this.eventoSrv.getEvento(this.tipo).then( (data: any) => {
+      this.eventoSrv.getEvento(this.tipo,0, 25).then( (data: any) => {
         this.stdGrid.setNewData(data);
         console.log(data);
       });
@@ -113,7 +131,7 @@ export class IphadEvenConsComponent implements OnInit, OnDestroy, AfterViewInit 
     if (!this.refreshActive) {
       this.tipo = this.service.getUser().tipo.cve
       console.log(this.tipo);
-      this.eventoSrv.getEvento(this.tipo).then( (data: any) => {
+      this.eventoSrv.getEvento(this.tipo,0, 25).then( (data: any) => {
         this.stdGrid.setNewData(data);
         console.log(data);
       });

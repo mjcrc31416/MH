@@ -105,7 +105,8 @@ export class IphadDetenidoInfoCardComponent implements OnInit {
   get imgUrl() {
     try {
       const img = this.detenido.intervencion.imgs[0].filename;
-      return `https://iphmov.azurewebsites.net/api/mov/getfile/${img}`;
+      //return `https://iphmov.azurewebsites.net/api/mov/getfile/${img}`;
+      return `https://cni05.sesnsp.net/iphmov/api/mov/getfile/${img}`;
     } catch (e) {
       // console.log(e);
     }

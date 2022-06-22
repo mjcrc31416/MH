@@ -3,7 +3,7 @@ export const environment = {
   //APIEndpoint: 'http://localhost:4390/api'
   //APIEndpoint: 'http://localhost:4390/api'
   //APIEndpoint: 'https://iphmov.azurewebsites.net/api'
-  APIEndpoint: 'https://cni05.sesnsp.net/iphmov/api'
+   APIEndpoint: 'https://cni05.sesnsp.net/iphmov/api'
 
   // test
 };

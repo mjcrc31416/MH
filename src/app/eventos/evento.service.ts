@@ -7,6 +7,7 @@ import {IEventoModel} from '../models/ievento-model';
 import {EventoFactory} from '../modelFactories/evento-factory';
 import {FormUtilsService} from '../shared/form-utils.service';
 import { LoginService } from '../services/login.service';
+import { reject } from 'lodash';
 
 
 // @Injectable({
@@ -35,6 +36,12 @@ export class EventoService {
   private eventSource = new Subject<any>();
   public eventSource$ = this.eventSource.asObservable();
 
+  public useLocation?: [number, number];
+  
+  get isUseLocationReady(): Boolean {
+    return !!this.useLocation;
+  }
+
   uri = environment.APIEndpoint;
 
   constructor(private service: LoginService,
@@ -42,7 +49,9 @@ export class EventoService {
     private log: LogServiceService,
     private eventoFactory: EventoFactory,
     private formUtils: FormUtilsService
-  ) { }
+  ) {
+    this.getUserLocation();
+   }
 
   public async getReporta() {
     let response = null;
@@ -244,5 +253,22 @@ export class EventoService {
     return response;
   }
 
+  public async  getUserLocation(): Promise<[number, number]> {
+    return new Promise( (resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition(
+        ( {coords} ) => {
+          this.useLocation = [coords.longitude, coords.latitude];
+          resolve( this.useLocation );
+        },
+        ( err ) => {
+          alert("No se Pudo Obtener la Geolocalización");
+          console.log(err);
+          reject();
+        }
+      );
+
+    });
+  }
 
 }

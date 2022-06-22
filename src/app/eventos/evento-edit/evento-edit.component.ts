@@ -25,6 +25,7 @@ import { NgForm } from '@angular/forms';
 import { DlgAsignarComponent } from '../dlg-asignar/dlg-asignar.component';
 import levenshtein from 'fast-levenshtein';
 import { EventoDataModel } from '../../models/evento.data.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -44,6 +45,9 @@ export class EventoEditComponent implements OnInit, OnDestroy {
   tincidente;
   stincidente;
   incidente;
+  latitude: any;
+  longitude: any;
+  lat: Promise<[number, number]>;
 
   // private subs: Subscription = new Subscription();
 
@@ -59,11 +63,8 @@ export class EventoEditComponent implements OnInit, OnDestroy {
     private eventoFct: EventoFactory,
     private formUtils: FormUtilsService,
   ) {
-    // this.subs.add(
-    //   this.eventoSrv.eventSource$.subscribe((data) => {
-    //       this.dispatchEvents(data);
-    //     }
-    //   ));
+    this.evento.ubicacionEvento.lat = ('0');
+    this.evento.ubicacionEvento.long = ('0');
   }
   @ViewChild('actionBar2Comp', { static: false }) public actionBar2: ActionBar2Component;
   @ViewChild('timeComp', { static: false }) public timeComp: TimeInputComponent;
@@ -183,8 +184,8 @@ export class EventoEditComponent implements OnInit, OnDestroy {
           this.evento.denunciante = response[0].denunciante;
           this.evento.ubicacionEvento.entidad = response[0].ubicacionEvento.entidad;
           this.evento.ubicacionEvento.municipio = response[0].ubicacionEvento.municipio;
-          this.evento.ubicacionEvento.lat = response[0].ubicacionEvento.lat;
-          this.evento.ubicacionEvento.long = response[0].ubicacionEvento.long;
+          this.evento.ubicacionEvento.lat = ('0');
+          this.evento.ubicacionEvento.long = ('0');
           this.evento.ubicacionEvento.cp = response[0].ubicacionEvento.cp;
           this.evento.ubicacionEvento.colonia = response[0].ubicacionEvento.colonia;
           this.evento.ubicacionEvento.calle = response[0].ubicacionEvento.calle;
@@ -204,8 +205,11 @@ export class EventoEditComponent implements OnInit, OnDestroy {
 
           console.log('Recuperadosss');
           console.log(response);
+          
         }
       })
+
+      this.geolocalizatiopn();
     }
 
     const tempProm = this.route.paramMap.subscribe((params: ParamMap) => {
@@ -288,57 +292,64 @@ export class EventoEditComponent implements OnInit, OnDestroy {
     this.form.form.get('fecha').patchValue(fechaObj.fechaObj);
     this.timeComp.setByDateTimeObj(fechaObj);
   }
+  
+  geolocalizatiopn() {
+    // this.evento.ubicacionEvento.lat = this.eventoSrv.getUserLocation().coords.latitude;
+    // this.evento.ubicacionEvento.long = this.eventoSrv.getUserLocation().coords.longitude;
 
-
-  onElegirGDir() {
-    const dlgRef = this.dialog.open(GmdirComponent, {
-      width: '800px',
-      height: '620px',
-    });
-
-    dlgRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('1');
-        // this.cnspForm.get('ubicacionEvento').get('calle').patchValue( (result.calle) ? result.calle.long_name : '');
-        // this.cnspForm.get('ubicacionEvento').get('colonia').patchValue( (result.colonia) ? result.colonia.long_name : '');
-        // this.cnspForm.get('ubicacionEvento').get('cp').patchValue( (result.codigoPostal) ? result.codigoPostal.long_name : '');
-        // this.cnspForm.get('ubicacionEvento').get('numero').patchValue( (result.numcalle) ? result.numcalle.long_name : '');
-        // this.cnspForm.get('ubicacionEvento').get('lat').patchValue( (result.lat) ? result.lat : '');
-        // this.cnspForm.get('ubicacionEvento').get('long').patchValue( (result.long) ? result.long : '');
-        this.evento.ubicacionEvento.calle = (result.calle ? result.calle.long_name : '');
-        this.evento.ubicacionEvento.colonia = (result.colonia ? result.colonia.long_name : '');
-        this.evento.ubicacionEvento.cp = (result.codigoPostal ? result.codigoPostal.long_name : '');
-        this.evento.ubicacionEvento.numero = (result.numcalle ? result.numcalle.long_name : '');
-        this.evento.ubicacionEvento.lat = (result.lat ? result.lat : '');
-        this.evento.ubicacionEvento.long = (result.long ? result.long : '');
-
-
-        if (!_.isNil(result.entidad)) {
-          // Buscar en el catalogo de entidades
-          const e2 = result.entidad.long_name.toUpperCase();
-          const entidadFoudnd = this.seachEntidadOrMunByLeven(e2, this.entidadesFederativas);
-
-          if (!_.isNil(entidadFoudnd)) {
-            this.evento.ubicacionEvento.entidad = entidadFoudnd;
-            //this.cnspForm.get('ubicacionEvento').get('entidad').patchValue(entidadFoudnd);
-            this.municipio = entidadFoudnd.municipios;
-
-            if (!_.isNil(result.municipio)) {
-              // Buscar en el catalogo de entidades
-              const e2 = result.municipio.long_name.toUpperCase();
-              const munFound = this.seachEntidadOrMunByLeven(e2, this.municipio);
-
-              if (!_.isNil(munFound)) {
-                this.evento.ubicacionEvento.municipio = munFound;
-                // this.cnspForm.get('ubicacionEvento').get('municipio').patchValue(munFound);
-              }
-            }
-          }
-        }
-      }
-
-    });
   }
+  
+  // onElegirGDir() {
+  //   const dlgRef = this.dialog.open(GmdirComponent, {
+  //     width: '800px',
+  //     height: '620px',
+  //   });
+
+  //   dlgRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       console.log('1');
+  //       // this.cnspForm.get('ubicacionEvento').get('calle').patchValue( (result.calle) ? result.calle.long_name : '');
+  //       // this.cnspForm.get('ubicacionEvento').get('colonia').patchValue( (result.colonia) ? result.colonia.long_name : '');
+  //       // this.cnspForm.get('ubicacionEvento').get('cp').patchValue( (result.codigoPostal) ? result.codigoPostal.long_name : '');
+  //       // this.cnspForm.get('ubicacionEvento').get('numero').patchValue( (result.numcalle) ? result.numcalle.long_name : '');
+  //       // this.cnspForm.get('ubicacionEvento').get('lat').patchValue( (result.lat) ? result.lat : '');
+  //       // this.cnspForm.get('ubicacionEvento').get('long').patchValue( (result.long) ? result.long : '');
+  //       this.evento.ubicacionEvento.calle = (result.calle ? result.calle.long_name : '');
+  //       this.evento.ubicacionEvento.colonia = (result.colonia ? result.colonia.long_name : '');
+  //       this.evento.ubicacionEvento.cp = (result.codigoPostal ? result.codigoPostal.long_name : '');
+  //       this.evento.ubicacionEvento.numero = (result.numcalle ? result.numcalle.long_name : '');
+  //       this.evento.ubicacionEvento.lat = (result.lat ? result.lat : '');
+  //       this.evento.ubicacionEvento.long = (result.long ? result.long : '');
+
+
+  //       if (!_.isNil(result.entidad)) {
+  //         // Buscar en el catalogo de entidades
+  //         const e2 = result.entidad.long_name.toUpperCase();
+  //         const entidadFoudnd = this.seachEntidadOrMunByLeven(e2, this.entidadesFederativas);
+
+  //         if (!_.isNil(entidadFoudnd)) {
+  //           this.evento.ubicacionEvento.entidad = entidadFoudnd;
+  //           //this.cnspForm.get('ubicacionEvento').get('entidad').patchValue(entidadFoudnd);
+  //           this.municipio = entidadFoudnd.municipios;
+
+  //           if (!_.isNil(result.municipio)) {
+  //             // Buscar en el catalogo de entidades
+  //             const e2 = result.municipio.long_name.toUpperCase();
+  //             const munFound = this.seachEntidadOrMunByLeven(e2, this.municipio);
+
+  //             if (!_.isNil(munFound)) {
+  //               this.evento.ubicacionEvento.municipio = munFound;
+  //               // this.cnspForm.get('ubicacionEvento').get('municipio').patchValue(munFound);
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //   });
+  // }
+
+
 
   seachEntidadOrMunByLeven(stringEntidadOrMun, listEntidadOrMun) {
     const e2 = stringEntidadOrMun.toUpperCase();

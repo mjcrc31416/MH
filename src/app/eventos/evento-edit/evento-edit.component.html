@@ -134,15 +134,8 @@
       </div>
 
       <div class="card-actionbar span-cols">
-        <button mat-raised-button color="primary" (click)="onElegirGDir()" class="bnt-mapa" >Ubicar en mapa</button>
+        <!-- <button mat-raised-button color="primary" (click)="onElegirGDir()" class="bnt-mapa" >Ubicar en mapa</button> -->
       </div>
-
-<!--      <mat-form-field>-->
-<!--        <mat-select placeholder="Colonia" formControlName="colonia">-->
-<!--          <mat-option *ngFor="let en of this.torre" [value]="en" >{{en.torre}}</mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
-
 
         <mat-form-field>
           <mat-select placeholder="Entidad Federativa" [(ngModel)]="evento.ubicacionEvento.entidad" name="entidad" [compareWith]="this.compareWithEntidadesFederativas" (selectionChange)="this.onSelectionChangeEntidadFederativa($event)">

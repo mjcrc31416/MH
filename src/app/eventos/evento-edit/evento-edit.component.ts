@@ -63,8 +63,9 @@ export class EventoEditComponent implements OnInit, OnDestroy {
     private eventoFct: EventoFactory,
     private formUtils: FormUtilsService,
   ) {
-    this.evento.ubicacionEvento.lat = ('0');
-    this.evento.ubicacionEvento.long = ('0');
+    this.latlong();
+    // this.evento.ubicacionEvento.lat = ('0');
+    // this.evento.ubicacionEvento.long = ('0');
   }
   @ViewChild('actionBar2Comp', { static: false }) public actionBar2: ActionBar2Component;
   @ViewChild('timeComp', { static: false }) public timeComp: TimeInputComponent;
@@ -208,8 +209,6 @@ export class EventoEditComponent implements OnInit, OnDestroy {
           
         }
       })
-
-      this.geolocalizatiopn();
     }
 
     const tempProm = this.route.paramMap.subscribe((params: ParamMap) => {
@@ -269,6 +268,8 @@ export class EventoEditComponent implements OnInit, OnDestroy {
         const resp = await this.eventoSrv.upsertEvento2(this.evento);
         this.evento._id = resp._id;
         this.evento._id = resp;
+        console.log('GUARDADOSSSS');
+        console.log(resp);
 
         // const resp = await this.eventoSrv.upsertEvento2(eventoData);
         // this._id = resp._id;
@@ -285,18 +286,32 @@ export class EventoEditComponent implements OnInit, OnDestroy {
   }
 
   // SERVICE EVENTS =======================================================================
+  //OBTENER LA UBICACION Y MOSTRARLA EN PAGINA
+  latlong() {
+    console.log(this.evento)
+    let that = this
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          console.log(position);
+          console.log('posicionnnn');
+          console.log(that.evento)
+
+          that.evento.ubicacionEvento.lat = position.coords.latitude.toString(); 
+          that.evento.ubicacionEvento.long = position.coords.longitude.toString();
+
+          console.log(that.evento.ubicacionEvento.lat);
+          console.log(that.evento.ubicacionEvento.long);
+          console.log('posicionnnn 2');
+    });
+  }
+} 
 
   setFullDate(fechaObj) {
     console.log('setFullDate =========================');
     console.log(fechaObj);
     this.form.form.get('fecha').patchValue(fechaObj.fechaObj);
     this.timeComp.setByDateTimeObj(fechaObj);
-  }
-  
-  geolocalizatiopn() {
-    // this.evento.ubicacionEvento.lat = this.eventoSrv.getUserLocation().coords.latitude;
-    // this.evento.ubicacionEvento.long = this.eventoSrv.getUserLocation().coords.longitude;
-
   }
   
   // onElegirGDir() {

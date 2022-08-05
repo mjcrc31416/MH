@@ -20,7 +20,8 @@ import {IphadPuestaComponent} from '../iphad-puesta/iphad-puesta.component';
 export class IphadEditComponent implements OnInit, AfterViewInit {
   // Action Bar Events ====================================================================
   titlesList = ['IPH Justicia Cívica', 'Consulta'];
-  showActionList = [9, 4];
+  // showActionList = [9, 4];
+  showActionList = [4];
   entidad;
 
   onActionClicked(item: ActionBarItemModel) {

@@ -44,6 +44,7 @@ export class UsuariosConsComponent implements OnInit {
     remove: true
   };
   tipo: any;
+  total: any = 0;
 
   constructor(
     private router: Router,
@@ -53,12 +54,28 @@ export class UsuariosConsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tipo = this.service.getUser().tipo.cve;
-    console.log(this.tipo);
-    this.usrSrv.getAll(this.tipo).then( (data: any) => {
-      this.stdGrid.setNewData(data);
-      console.log(data);
+
+    this.tipo = this.service.getUser().tipo.cve
+
+    this.consult(0,25)
+    // this.tipo = this.service.getUser().tipo.cve;
+    // console.log(this.tipo);
+    // this.usrSrv.getAll(this.tipo).then( (data: any) => {
+    //   this.stdGrid.setNewData(data);
+    //   console.log(data);
+    // });
+  }
+
+  consult(pageIndex, PageSize) {
+    this.usrSrv.getAll(this.tipo,pageIndex,PageSize).then( (data: any) => {
+      this.stdGrid.setNewData(data.data);
+      this.total=data.total
     });
+
+  }
+
+  changePage(event) {
+    this.consult(event.pageIndex, event.pageSize)
   }
 
   // Std Grid events -----------------------------------------
@@ -86,10 +103,15 @@ export class UsuariosConsComponent implements OnInit {
 
   onActualizar() {
     if (!this.refreshActive) {
-      this.usrSrv.getAll(this.tipo).then( (data) => {
+      this.usrSrv.getAll(this.tipo,0, 25).then( (data) => {
         this.stdGrid.setNewData(data);
       });
     }
+    // if (!this.refreshActive) {
+    //   this.usrSrv.getAll(this.tipo).then( (data) => {
+    //     this.stdGrid.setNewData(data);
+    //   });
+    // }
   }
 
   // Snackbar methods ------------------------------------

@@ -1522,7 +1522,7 @@ router.route('/getusuars').get(function (req, res) {
   console.log('entro');
   let fnMain = async (req,res) => {
     try {
-      let response = await getUsuars(req.query.tipo, req.query.inst, req.query.sede, req.query.mun);
+      let response = await getUsuars(req.query.tipo, req.query.inst, req.query.sede, req.query.mun, req.query.pageIndex, req.query.pageSize);
       console.log(response);
       res.status(200).send(response);
     } catch (error){
@@ -1533,7 +1533,7 @@ router.route('/getusuars').get(function (req, res) {
   fnMain(req, res);
 });
 
-async function getUsuars (tipo, inst, sede, mun) {
+async function getUsuars (tipo, inst, sede, mun, page, perPage) {
   console.log('getUsuars: init');
   console.log(tipo);
   console.log(inst);
@@ -1542,8 +1542,14 @@ async function getUsuars (tipo, inst, sede, mun) {
     // tipo = 'MINISTERIAL'
     // inst = 'SECRETARÍA DE SEGURIDAD Y PROTECCIÓN CIUDADANA'
     // sede= 'CIUDAD DE MÉXICO'
+    let count = null
 
   try{
+    page = page ? Number(page):0
+    perPage = perPage ? Number(perPage):15
+
+    let skip = page > 0 ? (page * perPage):0
+
     resp = await Usuarios.aggregate(
       [
         {
@@ -1567,14 +1573,45 @@ async function getUsuars (tipo, inst, sede, mun) {
             'sede': '$sede.sede'
           }
         }
+      ]).skip(skip).limit(perPage);
+
+    count = await NewModel.aggregate(
+      [
+        {
+          '$match': {
+            'tipo.cve': tipo,
+            'institucion.cve': inst,
+            'sede.cve': sede,
+            'municip.cve': mun
+          }
+        },
+        {
+          '$project': {
+            'correo': '$correo', 
+            nombreCompleto : {$concat : ["$policia.datPer.nombre"," ","$policia.datPer.appat", " ", "$policia.datPer.apmat"]},
+            nombre : {$concat : ["$nombre"," ","$appat", " ", "$apmat"]},
+            // 'nombre': '$nombre',
+            // 'appat': '$appat',
+            // 'apmat': '$apmat',
+            'tusuario': '$tusuario.tusuario', 
+            'institucion': '$institucion.institucion', 
+            'sede': '$sede.sede'
+          }
+        },
+        { $group: { _id: 'correo', count: { $sum: 1 } } }
       ]
-    ).limit(70);
+    );
   }catch (e) {
     console.log('getUsuars: Error ');
     console.log(e);
   }
 
-  return resp;
+  let result = {
+    "data": resp,
+    "total": count[0].count
+  }
+  console.log(result)
+  return result;
 }
 
 // CARGA GRID JUEZ=========================================================

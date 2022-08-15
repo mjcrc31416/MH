@@ -75,17 +75,17 @@ export class UsuariosService {
     
   // }
 
-  public async getAll(tipo) {
+  public async getAll(tipo, pageIndex, pageSize) {
     let response = null;
     console.log(response);
     
     try {
       if (tipo == '02') {    console.log('A');
-        return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve).toPromise();
+        return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       } else if (tipo !== '02') {    console.log('B');
-        return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
+        return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       } else if (tipo !== '02') {    console.log('C');
-        return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
+        return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
       }    console.log('D');
         
     } catch (e) {

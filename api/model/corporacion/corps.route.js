@@ -1050,7 +1050,7 @@ router.route('/getTerminal').get(function (req, res) {
   console.log('entro');
   let fnMain = async (req,res) => {
     try {
-      let response = await getTerminales(req.query.tipo, req.query.inst, req.query.sede, req.query.mun);
+      let response = await getTerminales(req.query.tipo, req.query.inst, req.query.sede, req.query.mun, req.query.pageIndex, req.query.pageSize);
       console.log(response);
       res.status(200).send(response);
     } catch (error){
@@ -1061,15 +1061,23 @@ router.route('/getTerminal').get(function (req, res) {
   fnMain(req, res);
 });
 
-async function getTerminales (tipo, inst, sede, mun) {
+async function getTerminales (tipo, inst, sede, mun, page, perPage) {
   console.log('getTerminales: init');
   console.log(tipo);
   console.log(inst);
   console.log(sede);
   console.log(mun);
   // ent = 'NUEVO LEÓN'
+  let resp = null
+  let count = null
 
   try{
+
+    page = page ? Number(page):0
+    perPage = perPage ? Number(perPage):25
+
+    let skip = page > 0 ? (page * perPage):0
+
     resp = await Terminal.aggregate(
             [
               {
@@ -1089,13 +1097,40 @@ async function getTerminales (tipo, inst, sede, mun) {
                 }
               }
             ]
+    ).skip(skip).limit(perPage);
+
+    count = await NewModel.aggregate(
+      [
+        {
+          '$match': {
+            'tipo.cve': tipo,
+            'institucion.cve': inst,
+            'sede.cve': sede,
+            'municip.cve': mun
+          }
+        },
+        {
+          '$project': {
+            'nombres': '$nombres',
+            'marca': '$marca',
+            'noInventario': '$noInventario',
+            'noAleatorio': '$noAleatorio'
+          }
+        },
+          { $group: { _id: "folioInterno", count: { $sum: 1 } } }
+        ]
     );
+
   }catch (e) {
     console.log('getTerminales: Error ');
     console.log(e);
   }
-
-  return resp;
+  let result = {
+    "data": resp,
+    "total": count[0].count
+  }
+console.log(result)
+  return result;
 }
 
 //CARGAR INFO TERMINAL

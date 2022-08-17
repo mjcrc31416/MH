@@ -20,6 +20,7 @@ export class TerminalConsComponent implements OnInit {
 
   SNACKBAR_STD_DURATION = 3500;
   refreshActive = false;
+  total: any = 0;
 
   // Std Grid fields -----------------------------------------
   sourceData = [];
@@ -51,15 +52,31 @@ export class TerminalConsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     this.tipo = this.service.getUser().tipo.cve
-    console.log(this.tipo);
-    this.terminalSrv.getTerminal(this.tipo).then( (data: any) => {
-      this.stdGrid.setNewData(data);
-      console.log(data);
-    });
+
+    this.consult(0,25)
+    
+    // this.tipo = this.service.getUser().tipo.cve
+    // console.log(this.tipo);
+    // this.terminalSrv.getTerminal(this.tipo).then( (data: any) => {
+    //   this.stdGrid.setNewData(data);
+    //   console.log(data);
+    // });
 
     // this.terminalSrv.getTerminal();
+  }
+
+  consult(pageIndex, PageSize) {
+    this.terminalSrv.getTerminal(this.tipo,pageIndex,PageSize).then( (data: any) => {
+      this.stdGrid.setNewData(data.data);
+      this.total=data.total
+    });
+
+  }
+
+  changePage(event) {
+    this.consult(event.pageIndex, event.pageSize)
   }
 
   onEditRow(data) {
@@ -86,11 +103,17 @@ export class TerminalConsComponent implements OnInit {
     }
   
     onActualizar() {
+
       if (!this.refreshActive) {
-        this.terminalSrv.getTerminal(this.tipo).then( (data) => {
+        this.terminalSrv.getTerminal(this.tipo,0, 25).then( (data) => {
           this.stdGrid.setNewData(data);
         });
       }
+      // if (!this.refreshActive) {
+      //   this.terminalSrv.getTerminal(this.tipo).then( (data) => {
+      //     this.stdGrid.setNewData(data);
+      //   });
+      // }
     }
 
   

@@ -12,41 +12,12 @@ let Usuarios = require('../model/Usuarios');
 instRoute.route('/upsert').post(function (req, res) {
   console.log("init upsert = = = = = = = = = = = = = = = ");
   let usuarios = new Usuarios(req.body);
-  console.log(usuarios);
 
-  if (!_.get(usuarios,'_id',null)) {
+ if (!_.get(usuarios,'_id',null)) {
     console.log('hasOwnProperty: true');
 
     let id = mongoose.Types.ObjectId();
     usuarios._id = id;
-/*
-    _.each(data.integrantes, (item) => {
-      if (item._id) {
-        if (item._id !== 0) {
-          let integrante = data.integrantes.id(item._id);
-          if (integrante) {
-            integrante.nombre = item.data.nombre;
-            integrante.appat = item.data.appat;
-            integrante.apmat = item.data.apmat;
-            integrante.fecnac = item.data.fecnac;
-          }
-        }
-      } else {
-        Usuarios.integrantes.push(item);
-      }
-      data.integrantes = req.body.integrantes;
-
-      data.markModified('integrantes');
-
-      data.save().then(data => {
-        res.json('Actualización completa');
-      })
-        .catch(err => {
-          res.status(400).send("No se pudo actualizar el documento");
-        });
-
-    });
-    */
 
   } else {
     console.log('hasOwnProperty: false');

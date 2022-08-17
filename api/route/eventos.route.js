@@ -360,7 +360,7 @@ async function getEvento (tipo, inst, sede, mun, page, perPage) {
             'estatus': '$estatus.nom', 
             'fecha': '$eventos.fecha', 
             'asignado': '$eventos.aceptado.fechaArribo', 
-            'ultimaMod': '$conocimiento.ultimaMod'
+            'ultimaMod': '$ultimaMod'
           }
         }, {
           '$sort': {

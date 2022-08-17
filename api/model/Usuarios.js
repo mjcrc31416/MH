@@ -17,7 +17,7 @@ let Usuarios = new Schema({
     type: String
   },
   correo: {
-    type: String, unique: true, lowercase: true
+    type: String, unique: true, lowercase: true, unique: true
   },
   pwd: {
     type: String

@@ -162,7 +162,7 @@ export class EventoEditComponent implements OnInit, OnDestroy {
 
     if (this.id != '0') {
       this.eventoSrv.getEventoById(this.id).then(response => {
-        if (response) {
+        if (response) { console.log(response); console.log('RESPUESTA GUARDADA');
           this.evento._id = response[0]._id;
           this.evento.reporta = response[0].reporta;
           this.evento.atiende = response[0].atiende;
@@ -185,8 +185,8 @@ export class EventoEditComponent implements OnInit, OnDestroy {
           this.evento.denunciante = response[0].denunciante;
           this.evento.ubicacionEvento.entidad = response[0].ubicacionEvento.entidad;
           this.evento.ubicacionEvento.municipio = response[0].ubicacionEvento.municipio;
-          this.evento.ubicacionEvento.lat = ('0');
-          this.evento.ubicacionEvento.long = ('0');
+          this.evento.ubicacionEvento.lat = response[0].ubicacionEvento.lat;
+          this.evento.ubicacionEvento.long = response[0].ubicacionEvento.long;
           this.evento.ubicacionEvento.cp = response[0].ubicacionEvento.cp;
           this.evento.ubicacionEvento.colonia = response[0].ubicacionEvento.colonia;
           this.evento.ubicacionEvento.calle = response[0].ubicacionEvento.calle;

@@ -162,7 +162,7 @@ export class EventoEditComponent implements OnInit, OnDestroy {
 
     if (this.id != '0') {
       this.eventoSrv.getEventoById(this.id).then(response => {
-        if (response) { console.log(response); console.log('RESPUESTA GUARDADA');
+        if (response) {
           this.evento._id = response[0]._id;
           this.evento.reporta = response[0].reporta;
           this.evento.atiende = response[0].atiende;
@@ -227,7 +227,7 @@ export class EventoEditComponent implements OnInit, OnDestroy {
     });
 
     this.subs.add(tempProm);
-  }
+  } 
 
   ngOnDestroy(): void {
     if (this.subs) {

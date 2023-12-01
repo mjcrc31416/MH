@@ -25,59 +25,35 @@ export class SideNavComponent implements OnInit {
     if (user.tusuario) {
       if (user.tusuario.tusuario == 'ADMINISTRADOR') {
         this.menu = [
+          
           {
-            label: 'JUSTICIA CÍVICA',
+            label: 'SISTEMA ADMINISTRACIÓN DE PERSONAL',
             submenus: [
-              {
-                label: 'Captura de Eventos',
-                componentLink: 'evento-cons',
-                isSelected: false
-              },
-              {
-                label: 'Primer Respondiente',
-                componentLink: 'preiph-cons',
-                isSelected: false
-              },
-              {
-                label: 'MediaFiliación',
-                componentLink: 'detdacti-cons',
-                isSelected: false
-              },
-              {
-                label: 'Certificado Médico',
-                componentLink: 'detenidos-cons',
-                isSelected: false
-              },
-              {
-                label: 'Registro Objetos Personales',
-                componentLink: 'detregistro-cons',
-                isSelected: false
-              },
-            ]
-          },
-          {
-            label: 'ADMINISTRACIÓN',
-            submenus: [
+              // {
+              //   label: 'Captura de Eventos',
+              //   componentLink: 'evento-cons',
+              //   isSelected: false
+              // },
               {
                 label: 'Alta de Personal',
                 componentLink: 'personal-cons',
                 isSelected: false
               },
-              {
-                label: 'Alta de Vehiculos',
-                componentLink: 'vehiculos-cons',
-                isSelected: false
-              },
+              // {
+              //   label: 'Alta de Vehiculos',
+              //   componentLink: 'vehiculos-cons',
+              //   isSelected: false
+              // },
               {
                 label: 'Usuarios',
                 componentLink: 'users-cons',
                 isSelected: false
               },
-              {
-                label: 'Terminales',
-                componentLink: 'terminal-cons',
-                isSelected: false
-              }
+              // {
+              //   label: 'Terminales',
+              //   componentLink: 'terminal-cons',
+              //   isSelected: false
+              // }
             ]
           },
           // {
@@ -90,84 +66,70 @@ export class SideNavComponent implements OnInit {
           //     }
           //   ]
           // }
-        ];
-      } else if (user.tusuario.tusuario == 'MÉDICO') {
-        this.menu = [
-          {
-            label: 'JUSTICIA CÍVICA',
-            submenus: [
-              {
-                label: 'Certificado Médico',
-                componentLink: 'detenidos-cons',
-                isSelected: false
-              },
-            ]
-          }
-        ];
-      } else if (user.tusuario.tusuario == 'CENTRAL DE RADIO') {
-        this.menu = [
-          {
-            label: 'JUSTICIA CÍVICA',
-            submenus: [
-              {
-                label: 'Captura de Eventos',
-                componentLink: 'evento-cons',
-                isSelected: false
-              },
-              {
-                label: 'Primer Respondiente',
-                componentLink: 'preiph-cons',
-                isSelected: false
-              }
-            ]
-          },
-        ];
-      } else if (user.tusuario.tusuario == 'PRIMER RESPONDIENTE') {
-        this.menu = [
-          {
-            label: 'JUSTICIA CÍVICA',
-            submenus: [
-              {
-                label: 'Registro Objetos Personales',
-                componentLink: 'detregistro-cons',
-                isSelected: false
-              }
-            ]
-          },
-        ];
-      } else if (user.tusuario.tusuario == 'MEDIAFILIACIÓN') {
-        this.menu = [
-          {
-            label: 'JUSTICIA CÍVICA',
-            submenus: [
-              {
-                label: 'MediaFiliación',
-                componentLink: 'detdacti-cons',
-                isSelected: false
-              },
-              {
-                label: 'Registro Objetos Personales',
-                componentLink: 'detregistro-cons',
-                isSelected: false
-              }
-            ]
-          },
-        ];
-      }
-      // } else if (user.tusuario.tusuario == 'JUEZ CÍVICO') {
+      //   ];
+      // } else if (user.tusuario.tusuario == 'MÉDICO') {
       //   this.menu = [
       //     {
-      //       label: 'REGISTRO DE JUSTICIA CÍVICA',
+      //       label: 'JUSTICIA CÍVICA',
       //       submenus: [
       //         {
-      //           label: 'Consulta del Detenido',
+      //           label: 'Certificado Médico',
       //           componentLink: 'detenidos-cons',
       //           isSelected: false
       //         },
       //       ]
       //     }
       //   ];
-      // }
+      // } else if (user.tusuario.tusuario == 'CENTRAL DE RADIO') {
+      //   this.menu = [
+      //     {
+      //       label: 'JUSTICIA CÍVICA',
+      //       submenus: [
+      //         {
+      //           label: 'Captura de Eventos',
+      //           componentLink: 'evento-cons',
+      //           isSelected: false
+      //         },
+      //         {
+      //           label: 'Primer Respondiente',
+      //           componentLink: 'preiph-cons',
+      //           isSelected: false
+      //         }
+      //       ]
+      //     },
+      //   ];
+      // } else if (user.tusuario.tusuario == 'PRIMER RESPONDIENTE') {
+      //   this.menu = [
+      //     {
+      //       label: 'JUSTICIA CÍVICA',
+      //       submenus: [
+      //         {
+      //           label: 'Registro Objetos Personales',
+      //           componentLink: 'detregistro-cons',
+      //           isSelected: false
+      //         }
+      //       ]
+      //     },
+      //   ];
+      // } else if (user.tusuario.tusuario == 'MEDIAFILIACIÓN') {
+      //   this.menu = [
+      //     {
+      //       label: 'JUSTICIA CÍVICA',
+      //       submenus: [
+      //         {
+      //           label: 'MediaFiliación',
+      //           componentLink: 'detdacti-cons',
+      //           isSelected: false
+      //         },
+      //         {
+      //           label: 'Registro Objetos Personales',
+      //           componentLink: 'detregistro-cons',
+      //           isSelected: false
+      //         }
+      //       ]
+      //     },
+        ];
+      }
     }
   }
 

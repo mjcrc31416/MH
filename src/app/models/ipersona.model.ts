@@ -9,6 +9,8 @@ export class IPersonaModel {
   fecnac: Date;
   sexo: string;
   estadoCivil: string;
+  escolaridad: string;
+  depco: string;
 
   apmat?: string;
   rfc?: string;
@@ -22,9 +24,11 @@ export class IPersonaModel {
     this.nombre = '',  
     this.appat = '',  
     this.apmat = '',  
-    this.fecnac = null,  
+    this.fecnac = new Date,  
     this.sexo = '',
     this.estadoCivil = '',
+    this.escolaridad = '',
+    this.depco = '',
     this.rfc = '',
     this.curp = '',
     this.cuip = '',

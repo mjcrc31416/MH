@@ -53,30 +53,6 @@
         <input matInput placeholder="Apellido Materno" [(ngModel)]="user.apmat" name="apmat">
         <mat-hint></mat-hint>
       </mat-form-field>
-  
-      <mat-form-field>
-        <mat-select placeholder="Tipo" [(ngModel)]="user.tipo" name="tipo" [compareWith]="this.compareWithTipos"  (ngModelChange)="onSelectionChange(user.tipo, 'T', 'UI')">
-          <mat-option *ngFor="let en of tipos" [value]="en">{{en.tipo}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-select placeholder="Institución" [(ngModel)]="user.institucion" name="institucion" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(user.institucion, 'I', 'UI')">
-          <mat-option *ngFor="let in of instituciones" [value]="in">{{in.institucion}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-select placeholder="Sede" [(ngModel)]="user.sede" name="sede" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(user.sede, 'S', 'UI')">
-          <mat-option *ngFor="let se of sedes" [value]="se">{{se.sede}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field *ngIf="user.tipo['tipo']=='MUNICIPAL'">
-        <mat-select placeholder="Municipio" [(ngModel)]="user.municip" name="municip" [compareWith]="this.compareWithTipos">
-          <mat-option *ngFor="let mu of municipios" [value]="mu">{{mu.municip}}</mat-option>
-        </mat-select>
-      </mat-form-field>
 
 
   </mat-card>

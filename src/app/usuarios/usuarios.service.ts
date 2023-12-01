@@ -75,53 +75,57 @@ export class UsuariosService {
     
   // }
 
-  public async getAll(tipo, pageIndex, pageSize) {
-    let response = null;
-    console.log(response);
-    
-    try {
-      if (tipo == '02') {    console.log('A');
-        return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
-      } else if (tipo !== '02') {    console.log('B');
-        return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
-      } else if (tipo !== '02') {    console.log('C');
-        return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
-      }    console.log('D');
-        
-    } catch (e) {
-      this.log.show('Error');
-    }
-    this.eventSource.next({
-            event: UsuariosEvents.GetUsuarios,
-            data: response
-          });
-          console.log(response);
-    return response;
-    
+  getAll() {
+    return this.http.get<any>(`${this.uri}/corps/getusuars`);
   }
 
-  public async getAlli(tipo) {
-    let response = null;
-    console.log(response);
+  // public async getAll(tipo, pageIndex, pageSize) {
+  //   let response = null;
+  //   console.log(response);
     
-    try {
-      if (tipo == '02') {
-        return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve).toPromise();
-      } else if (tipo !== '02') {
-        return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
-      }
+  //   try {
+  //     if (tipo == '02') {    console.log('A');
+  //       return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
+  //     } else if (tipo !== '02') {    console.log('B');
+  //       return this.http.get(`${this.uri}/corps/getusuars?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
+  //     } else if (tipo !== '02') {    console.log('C');
+  //       return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&pageIndex='+pageIndex+'&pageSize='+pageSize).toPromise();
+  //     }    console.log('D');
         
-    } catch (e) {
-      this.log.show('Error');
-    }
-    this.eventSource.next({
-            event: UsuariosEvents.GetUsuarios,
-            data: response
-          });
-          console.log(response);
-    return response;
+  //   } catch (e) {
+  //     this.log.show('Error');
+  //   }
+  //   this.eventSource.next({
+  //           event: UsuariosEvents.GetUsuarios,
+  //           data: response
+  //         });
+  //         console.log(response);
+  //   return response;
     
-  }
+  // }
+
+  // public async getAlli(tipo) {
+  //   let response = null;
+  //   console.log(response);
+    
+  //   try {
+  //     if (tipo == '02') {
+  //       return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve+'&mun='+this.service.getUser().municip.cve).toPromise();
+  //     } else if (tipo !== '02') {
+  //       return this.http.get(`${this.uri}/corps/getPersona?&tipo=`+this.service.getUser().tipo.cve+'&inst='+this.service.getUser().institucion.cve+'&sede='+this.service.getUser().sede.cve).toPromise();
+  //     }
+        
+  //   } catch (e) {
+  //     this.log.show('Error');
+  //   }
+  //   this.eventSource.next({
+  //           event: UsuariosEvents.GetUsuarios,
+  //           data: response
+  //         });
+  //         console.log(response);
+  //   return response;
+    
+  // }
 
   getCountByMail(mail) {
     return this.http.post(`${this.uri}/usuarios/countcorreo`,{correo: mail});
@@ -171,7 +175,7 @@ export class UsuariosService {
   public async getCatalogs() {
     let response = null;
     try {
-      response = await this.http.get(`${this.uri}/catalogos/cattipos`).toPromise();
+      response = await this.http.get(`${this.uri}/catalogos/catentfed`).toPromise();
     } catch (e) {
       this.log.show('Error: evento.servicei -> getCatalogs');
     }

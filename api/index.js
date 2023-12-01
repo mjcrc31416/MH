@@ -19,6 +19,8 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   cors = require('cors'),
   mongoose = require('mongoose');
+  const multipart = require('connect-multiparty');
+  const File = require('./model/corporacion/file.model');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MDBCS, {
@@ -30,6 +32,10 @@ mongoose.connect(process.env.MDBCS, {
   },
   err => { console.log('Can not connect to the database'+ err)}
 );
+
+const multiPartMiddleware = multipart({
+  uploadDir: './subidas'
+});
 
 const app = express();
 app.use(express.static(process.env.ANGAPPDIRNAME));
@@ -43,20 +49,12 @@ app.use(cors());
 //REPORTA
 const catalogosRoute = require('./route/catalogos.route');
 app.use('/api/catalogos', catalogosRoute);
-//EVENTOS
-const eventosRoute = require('./route/eventos.route');
-app.use('/api/eventos', eventosRoute);
-// CORPORACIONES
-const corporacionesRoute = require('./model/corporacion/corps.route');
-app.use('/api/corps', corporacionesRoute);
-const preIphRoute = require('./model/iph-admin/iph-admin.route');
-app.use('/api/iphadm', preIphRoute);
 //Usuarios
 const userRoute = require('./route/usuarios.route');
 app.use('/api/usuarios', userRoute);
-//Mov
-const movRoute = require('./route/mov.route');
-app.use('/api/mov', movRoute);
+// CORPORACIONES
+const corporacionesRoute = require('./model/corporacion/corps.route');
+app.use('/api/corps', corporacionesRoute);
 
 // Redirect all the other resquests
 const __dirname11 = process.env.ANGAPPDIRNAME;
@@ -71,13 +69,25 @@ app.get('*', function (req, res) {
   }
 });
 
-// app.get("/Acuerdos", function (req, res) {
-//   Acuerdos.find({}, function (err, Acuerdos) {
-//     Instituciones.populate(Acuerdos, { path: "Instituciones" }, function (err, Acuerdos) {
-//       res.status(200).send(Acuerdos);
-//     });
-//   });
-// });
+
+//EndPoint to Upload files
+app.post('/api/subir', multiPartMiddleware, function (req, res) {
+  let fnMain = async (req, res) => {
+
+    try {
+
+      const response = await File.create({
+        name: req.files.uploads.originalFilename
+      });
+
+      res.status(200).send(response);
+    } catch (error) {
+    console.log(error);
+    res.status(400).send('error');
+  }
+};
+fnMain(req, res);
+});
 
 // Depending on your own needs, this can be extended
 app.use(bodyParser.json({ limit: '50mb' }));

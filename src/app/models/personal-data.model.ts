@@ -1,29 +1,26 @@
 
+import { EmpleadoModel } from './empleado.model';
 import {PersonaModel} from './persona.model';
 
 export class PersonalDataModel {
   [x: string]: any;
-    _id?: string;
-  
-    cve: string;
-    corporacion: Object;
-    grado: string;
-    tipo: Object;
-    institucion: Object;
-    sede: Object;
-    municip: Object;
-  
+  _id?: string;
+
+    no_empleado:string;
+    tipo_nomina:Object;
+    Cod_puesto: string;
+    Nom_puesto: string;
+
     datPer?: PersonaModel;
 
     constructor() {
-      this.cve = '',
-      this.corporacion = {},
-      this.grado = '',
-      this.tipo = {},
-      this.institucion = {},
-      this.sede = {},
-      this.municip = {}, 
-      this.datPer = new PersonaModel()  
+
+      this.no_empleado='',
+      this.tipo_nomina='',
+      this.Cod_puesto='',
+      this.Nom_puesto='',
+
+      this.datPer = new PersonaModel()
     }
   }
   

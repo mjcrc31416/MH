@@ -2,16 +2,9 @@ import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
-//import {LogServiceService} from '../shared/log-service.service';
 import {LogServiceService} from '../../shared/log-service.service';
 import { LoginService } from '../../services/login.service';
 
-
-
-
-// @Injectable({
-//   providedIn: 'root'
-// })
 
 export enum PersonalEvents {
   CorpCatalog = 1,
@@ -126,6 +119,8 @@ export class PersonalService {
 
   public async upsertPersonal(data) {
     let response = null;
+    console.log(response);
+    console.log('RESPUESTA SERVICIO');
     try {
       response = await this.http.post(`${this.uri}/corps/personal/upse`, data).toPromise();
     } catch (e) {
@@ -175,6 +170,10 @@ export class PersonalService {
     
   }
 
+  getPersona() {
+    return this.http.get<any>(`${this.uri}/corps/getPersona`);
+  }
+
   // public async getPersonal() {
   //   let response = null;
   //   try {
@@ -199,14 +198,10 @@ export class PersonalService {
     return response;
   }
 
-  public async getCatalogs() {
-    let response = null;
-    try {
-      response = await this.http.get(`${this.uri}/catalogos/cattipos`).toPromise();
-    } catch (e) {
-      this.log.show('Error: evento.servicei -> getCatalogs');
-    }
-    return response;
+  uploadFile(formData) {
+    let urlApi = 'http://localhost:4390/api/subir';
+    return this.http.post(urlApi, formData);
+
   }
 
 }

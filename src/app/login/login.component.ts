@@ -1,15 +1,22 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, NgModule } from '@angular/core';
 import { LoginService, User } from '../services/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { MatCardModule } from '@angular/material/card';
+
 
 @Component({
   selector: 'app-login',
   providers: [LoginService],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  
+  
 })
+
+
+
 export class LoginComponent implements OnInit {
 
   public user: User;
@@ -39,33 +46,27 @@ export class LoginComponent implements OnInit {
         else {
           this.service.login(data);
           console.log(this.user.correo);
-          this.router.navigate(['/evento-cons']);
+          this.router.navigate(['/personal-cons']);
           return true;
         }
       }
     );
-    /*if (!this.
-      .getByCorreo(this.user)) {
-      this.errorMsg = 'Usuario o Contraseña Incorrecta';
-    } else if (this.logueo) {
-      console.log('Puedes Pasar');
-      this.router.navigate(['/cnsp-consulta']);
-      return true;
-    } else {
-      console.error('No puedes Pasar');
-      return false;
-    }*/
   }
+
+  
 
   ngOnInit() {
 
     this.service.checkCredentials();
-
+  
   }
 
   logout() {
     this.service.logout();
   }
 
-
+  
 }
+
+
+

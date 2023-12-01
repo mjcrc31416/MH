@@ -24,20 +24,16 @@ export class UsuariosConsComponent implements OnInit {
   colDefs = [
     {headerName: 'Correo', field: 'correo', width: 200, filter: true},
     {
-    headerName: 'Nombre', field: 'nombreCompleto', with: 250,
+    headerName: 'Nombre', field: 'nombreCompleto',
     cellRenderer: (params) => {
       if (params.value) {
         return params.value
       } else {
         return params.data.nombre
       }
-    }
+    }, with: 500
   },
-    //{headerName: 'Nombre', field: 'nombreCompleto', with: 150},
-    // {headerName: 'Nombre', field: 'nombre',with: 150},
-    {headerName: 'Tipo de Usuario', field: 'tusuario', width: 200},
-    {headerName: 'Institución', field: 'institucion', width: 350},
-    {headerName: 'Sede', field: 'sede', width: 250}
+    {headerName: 'Tipo de Usuario', field: 'tusuario', width: 200}
   ];
   stdColConfig = {
     edit: true,
@@ -45,7 +41,7 @@ export class UsuariosConsComponent implements OnInit {
   };
   tipo: any;
   total: any = 0;
-
+  
   constructor(
     private router: Router,
     private usrSrv: UsuariosService,
@@ -55,9 +51,13 @@ export class UsuariosConsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.tipo = this.service.getUser().tipo.cve
+    this.usrSrv.getAll().subscribe(data => {
+      this.stdGrid.setNewData(data);
+    });
 
-    this.consult(0,25)
+    // this.tipo = this.service.getUser().tipo.cve
+
+    // this.consult(0,25)
     // this.tipo = this.service.getUser().tipo.cve;
     // console.log(this.tipo);
     // this.usrSrv.getAll(this.tipo).then( (data: any) => {
@@ -66,17 +66,17 @@ export class UsuariosConsComponent implements OnInit {
     // });
   }
 
-  consult(pageIndex, PageSize) {
-    this.usrSrv.getAll(this.tipo,pageIndex,PageSize).then( (data: any) => {
-      this.stdGrid.setNewData(data.data);
-      this.total=data.total
-    });
+  // consult(pageIndex, PageSize) {
+  //   this.usrSrv.getAll(this.tipo,pageIndex,PageSize).then( (data: any) => {
+  //     this.stdGrid.setNewData(data);
+  //     this.total= data;
+  //   });
 
-  }
+  // }
 
-  changePage(event) {
-    this.consult(event.pageIndex, event.pageSize)
-  }
+  // changePage(event) {
+  //   this.consult(event.pageIndex, event.pageSize)
+  // }
 
   // Std Grid events -----------------------------------------
   onEditRow(data) {
@@ -103,9 +103,12 @@ export class UsuariosConsComponent implements OnInit {
 
   onActualizar() {
     if (!this.refreshActive) {
-      this.usrSrv.getAll(this.tipo,0, 25).then( (data) => {
+      this.usrSrv.getAll().subscribe(data => {
         this.stdGrid.setNewData(data);
       });
+      // this.usrSrv.getAll(this.tipo,0, 25).then( (data) => {
+      //   this.stdGrid.setNewData(data);
+      // });
     }
     // if (!this.refreshActive) {
     //   this.usrSrv.getAll(this.tipo).then( (data) => {

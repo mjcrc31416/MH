@@ -12,10 +12,6 @@ export class UsuarioDataModel {
   vincular: Object;
   policia: Object;
   equipo: string;
-  tipo: Object;
-  institucion: Object;
-  sede: Object;
-  municip: Object;
 
   docInfo: DocInfoDataModel;
 
@@ -30,11 +26,7 @@ export class UsuarioDataModel {
     this.vincular = '',
     this.equipo = '',
     this._id = null,
-    this.policia = null,
-    this.tipo = {},
-    this.institucion = {},
-    this.sede = {},
-    this.municip = {}
+    this.policia = null
 
   }
 

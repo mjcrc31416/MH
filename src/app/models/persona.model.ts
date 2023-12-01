@@ -7,13 +7,11 @@ export class PersonaModel {
   fecnac: Date;
   sexo: Object;
   estadoCivil: Object;
-
+  escolaridad: Object;
+  depeco: Object;
   apmat?: string;
   rfc?: string;
   curp?: string;
-  cuip?: string;
-  grupoSangre?: Object;
-  factorRH?: Object;
 
   constructor() {
 
@@ -22,13 +20,11 @@ export class PersonaModel {
     this.apmat = '',  
     this.fecnac = null,  
     this.sexo = '',
-    this.estadoCivil = '',
     this.rfc = '',
     this.curp = '',
-    this.cuip = '',
-    this.grupoSangre = '',
-    this.factorRH = ''
-
+    this.estadoCivil = '',
+    this.escolaridad = '',
+    this.depeco = ''
   }
 
 }

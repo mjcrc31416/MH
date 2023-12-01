@@ -29,8 +29,6 @@
 <div *ngFor="let item of this.menu" class="menu-cont">
   <h3>{{item.label}}</h3>
   <a *ngFor="let submenu of item.submenus" (click)="setSel(submenu)" [ngClass]="{'selected-menu': submenu.isSelected}">{{submenu.label}}</a>
-<!--  <ul>-->
-<!--    <li *ngFor="let submenu of item.submenus"><a>{{submenu.label}}</a></li>-->
-<!--  </ul>-->
+
 </div>
 

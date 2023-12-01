@@ -8,7 +8,7 @@
   //background-color: black !important;
 
   h3 {
-    color: #bfbfbf;
+    color: white;
     font-family: Arial;
     font-size: 10pt;
     margin-left: 5px;
@@ -24,11 +24,13 @@
       cursor: pointer;
       padding-top: 5px;
       padding-bottom: 5px;
+      
     }
 
     a:hover {
       background-color: #bfbfbf;
-      color: #404040;
+     
+      //color: #404040;
     }
   }
 }
@@ -41,7 +43,8 @@ mat-nav-list {
 
 a {
   @extend %side-nav-item;
-  color: white !important;
+  //color: rgb(46, 45, 45) !important;
+  color: white;  // aqui se cambia el color de los item en el sidenav
 }
 
 .nav-item{

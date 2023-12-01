@@ -1,56 +1,61 @@
 :host {
-  // display: flex;
-  // justify-content: center;
-  // height: 100px;
-  // margin: 0px 0px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-
-  background-image: url(~src/assets/imgs/logoruben.png);
   padding: 0%;
-  background-size: cover ;
+  
+  background:  url(~src/assets/imgs/logo.png) left top no-repeat, 
+  url(~src/assets/imgs/mapa.png) right bottom no-repeat,
+   linear-gradient(45deg, rgb(66, 117, 219) , rgb(0, 225, 255));
+  //background-repeat: no-repeat;
+  //background-size: cover;
+  background-attachment: fixed; 
   grid-template-columns: minmax(0, 1fr);
 }
 
 .full-page{
   display: grid;
-  // height: 100vh;
-  background-image: url(~src/assets/imgs/logoruben.png);
   padding: 0%;
-  background-size: cover ;
   grid-template-columns: minmax(0, 1fr);
+  background-repeat: no-repeat;
 }
 
 .login-card {
-  background-color: rgb(129, 13, 13);
+  background-color: rgb(255, 250, 250);
+  //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.2);
+
   margin: auto;
   width: 400px;
   height: 300px;
 }
 
-      .mat-form-field {
-        width: 100%;
-        min-width: 300px;
-    
-      }
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
 
-      .button {
-        display: flex;
-        justify-content: flex-end;
-        text-decoration-color: azure;
-      }
+.button {
+  display: flex;
+  justify-content: flex-end;
+  text-decoration-color: azure;
+}
 
-  ::ng-deep .mat-focused .mat-form-field-label {
+::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/
   color: gainsboro !important;
- }
+}
 
- ::ng-deep.mat-form-field-underline {
+::ng-deep.mat-form-field-underline {
   /*change color of underline*/
-  background-color: gainsboro !important;
+  background-color: rgb(227, 173, 173) !important;
 } 
 
 ::ng-deep.mat-form-field-ripple {
- /*change color of underline when focused*/
- background-color: gainsboro !important;;
+  /*change color of underline when focused*/
+  background-color: rgb(220, 196, 196) !important;;
+}
+
+/* Aplicar opacity solo a la imagen */
+:host:first-child {
+  opacity: 0.2;
 }

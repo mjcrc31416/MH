@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {PersonalEvents, PersonalService} from '../personal.service';
 import {Subscription} from 'rxjs';
@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material';
 import * as moment from 'moment';
 import { LoginService } from '../../../services/login.service';
 import { ValueGetterParams } from 'ag-grid-community';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-personal-cons',
@@ -29,13 +30,10 @@ export class PersonalConsComponent implements OnInit, OnDestroy {
   // Std Grid fields -----------------------------------------
   sourceData = [];
   colDefs = [
-      { headerName: 'ID', valueGetter: (args) => this._getIdValue(args), width: 100 },
-      {headerName: 'Clave Personal', field: 'cve', width: 150, filter: true},
-      {headerName: 'Nombre', field: 'datPer.nombre', width: 200, filter: true},
-      {headerName: 'Apellido Paterno', field: 'datPer.appat'},
-      {headerName: 'Apellido Materno', field: 'datPer.apmat'},
-      {headerName: 'CUIP', field: 'datPer.cuip'},
-      {headerName: 'Sexo', field: 'datPer.sexo.sexo'},
+      { headerName: 'ID', valueGetter: (args) => this._getIdValue(args), width: 50 },
+      {headerName: 'Nombre', field: 'datPer.nombre', width: 150, filter: true},
+      {headerName: 'Apellido Paterno', field: 'datPer.appat', width: 150,},
+      {headerName: 'Apellido Materno', field: 'datPer.apmat', width: 150,},
       {headerName: 'Fecha de Nacimiento', field: 'datPer.fecnac', cellRenderer: (data) => {
         if (!_.isNil(data) && !_.isNil(data.value)) {
           const ret: string = moment(data.value).format('DD/MM/YYYY');
@@ -43,19 +41,30 @@ export class PersonalConsComponent implements OnInit, OnDestroy {
         } else {
           return '';
         }
-      } }
+      }, width: 150 },
+      {headerName: 'Sexo', field: 'datPer.sexo.sexo', width: 150},
+      {headerName: 'RFC', field: 'datPer.rfc', width: 150},
+      {headerName: 'CURP', field: 'datPer.curp', width: 180},
+      {headerName: 'Escolaridad', field: 'datPer.escolaridad.escolaridad', width: 150},
+      {headerName: 'Dep. Ecónomicos', field: 'datPer.depeco.depeco', width: 150},
+      {headerName: 'N° Empleado', field: 'No_empleado', width: 150},
+      {headerName: 'Tipo Nómina Civil', field: 'Tipo_nomina', width: 150},
+      {headerName: 'Cod Puesto', field: 'Cod_puesto', width: 150},
+      {headerName: 'Puesto', field: 'Nom_puesto', width: 150}
   ];
   stdColConfig = {
     edit: true,
     remove: true
   };
+  subscription: any;
   
   constructor( 
     private router: Router,
     public dialog: MatDialog,
     private personalSrv: PersonalService,
     private service: LoginService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location,
     )
   {
     // this.subs.add(
@@ -66,14 +75,40 @@ export class PersonalConsComponent implements OnInit, OnDestroy {
       
   }
 
+   // Este método se ejecutará cada vez que se presione una tecla
+   @HostListener('window:keydown', ['$event'])
+   handleKeyDown(event: KeyboardEvent): void {
+     // Verifica si la tecla presionada es la tecla de retroceso (flecha hacia atrás)
+     if (event.key === 'Backspace') {
+       // Bloquea la acción predeterminada (retroceder en la historia del navegador)
+       event.preventDefault();
+       // Opcional: Puedes agregar tu propia lógica aquí, por ejemplo, mostrar un mensaje al usuario
+     }
+   }
+
+    // Este método se ejecutará cada vez que se intente cambiar de ruta
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: PopStateEvent): void {
+    // Bloquea la acción predeterminada (retroceder en la historia del navegador)
+    this.location.forward();
+    // Opcional: Puedes agregar tu propia lógica aquí, por ejemplo, mostrar un mensaje al usuario
+  }
+
+
   ngOnInit() {
     
-    this.tipo = this.service.getUser().tipo.cve
-    console.log(this.tipo);
-    this.personalSrv.getPersonal(this.tipo).then( (data: any) => {
+
+    this.subscription = this.personalSrv.getPersona().subscribe(data => {
       this.stdGrid.setNewData(data);
-      console.log(data);
     });
+
+
+// this.tipo = this.service.getUser().tipo.cve
+    // console.log(this.tipo);
+    // this.personalSrv.getPersonal(this.tipo).then( (data: any) => {
+    //   this.stdGrid.setNewData(data);
+    //   console.log(data);
+    // });
 
     // this.terminalSrv.getTerminal();
   }
@@ -106,16 +141,26 @@ export class PersonalConsComponent implements OnInit, OnDestroy {
   
     onActualizar() {
       if (!this.refreshActive) {
-        this.personalSrv.getPersonal(this.tipo).then( (data) => {
-          this.stdGrid.setNewData(data);
-        });
+
+        this.personalSrv.getPersona().subscribe(
+          (data) => {
+            this.stdGrid.setNewData(data);
+            this.refreshActive = false;
+          }
+        );
+
+        // this.personalSrv.getPersonal(this.tipo).then( (data) => {
+        //   this.stdGrid.setNewData(data);
+        // });
       }
     }
 
     ngOnDestroy(): void {
-      if (this.subs) {
-        this.subs.unsubscribe();
-      }
+      // if (this.subs) {
+      //   this.subs.unsubscribe();
+      // }
+      this.subscription.unsubscribe();
+
     }
 
     showMsg(msg: string) {
@@ -185,7 +230,8 @@ export class PersonalConsComponent implements OnInit, OnDestroy {
 
   // private subs: Subscription = new Subscription();
 
-  // constructor( 
+
+// constructor( 
   //   private router: Router,
   //   public dialog: MatDialog,
   //   private personalSrv: PersonalService 

@@ -23,31 +23,16 @@ let DatosPersonales = new Schema({
   curp: {
     type: String
   },
-  cuip: {
-    type: String
-  },
   sexo: {
     type: Object
   },
   estadoCivil: {
     type: Object
   },
-  grupoSangre: {
+  escolaridad: {
     type: Object
   },
-  factorRH: {
-    type: Object
-  },
-  nacionalidad: {
-    type: Object
-  },
-  alias: {
-    type: String
-  },
-  entidadNacimiento: {
-    type: Object
-  },
-  coordinadora: { //si
+  depeco: {
     type: Object
   },
 });

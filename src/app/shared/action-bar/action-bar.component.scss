@@ -5,7 +5,7 @@
   grid-template-columns: auto auto;
   border-bottom: 1px solid gainsboro;
   align-items: center;
-
+  
   .title {
     padding-left: 10px;
     @extend %title-bar;
@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    color: black;
 
     > * {
       margin-left: 5px;

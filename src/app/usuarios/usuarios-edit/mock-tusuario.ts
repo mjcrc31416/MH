@@ -4,19 +4,7 @@ export const TUSUARIO = [
     cve: 1
   },
   {
-    tusuario: 'MÉDICO',
+    tusuario: 'PERSONAL',
     cve: 2
-  },
-  {
-    tusuario: 'DACTILOSCOPIA',
-    cve: 3
-  },
-  {
-    tusuario: 'PRIMER RESPONDIENTE',
-    cve: 4
-  },
-  {
-    tusuario: 'CENTRAL DE RADIO',
-    cve: 5
   }
 ];

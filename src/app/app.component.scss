@@ -7,34 +7,6 @@
   grid-template-columns: auto minmax(0,1fr);  
   grid-template-rows: 0px minmax(0,1fr);
 
-  //.app-toolbar {
-  //  display: grid;
-  //  grid-template-columns: auto auto;
-  //  grid-column: 1/-1;
-  //  align-items: center;
-  //
-  //  background-color: #235b4e;
-  //
-  //  .loader {
-  //    grid-column: 1/-1;
-  //    margin: 0px;
-  //    padding: 0px;
-  //  }
-  //
-  //  .title {
-  //    margin-left: 10px;
-  //    font-family: Arial;
-  //    color: gainsboro;
-  //    font-size: 20px;
-  //  }
-  //
-  //  .botton-set {
-  //    display: flex;
-  //    flex-direction: row;
-  //    justify-content: flex-end;
-  //  }
-  //}
-
   .loader {
     grid-column: 1/-1;
   }
@@ -42,16 +14,30 @@
   .app-sidenav {
     display: grid;
     grid-template-rows: 80px minmax(0,1fr) 60px;
-    width: 270px;
-    //background-color: black;
-    background-image: url(../assets/imgs/side-nav-bg-01.png);
-    background-size: cover;
+    width: 300px;
+    //background-color: rgb(91, 109, 244);
+    //background-image: url(../assets/imgs/side-nav-bg-01.png);
+    background: linear-gradient(135deg, rgb(66, 117, 219) , rgb(0, 225, 255));
+    
+    //filter:  hue-rotate(270deg);
+    //filter:  hue-rotate(270deg);
+    background-size:cover;
 
     .main-logo {
-      background-image: url(../assets/imgs/main-logo.png);
-      background-size: 7cm 2.2cm;
+      //background-image: url(../assets/imgs/main-logo.png);
+      //background-color: rgb(91, 109, 244);
+      background-image: url(../assets/imgs/logo.png);
+      background-repeat: no-repeat;
+      background-size: 2cm 2.2cm;
       padding-top: 0cm;
       padding-bottom: 0cm;
+    
+      width: 300px;
+      height: 300px;
+     
+      justify-content: center;
+      background-position: 2.5cm 0;
+
       img {
         width: 0%;
         height: 0%;
@@ -80,7 +66,7 @@
     grid-template-columns: minmax(0,1fr);
     grid-template-rows: 0px minmax(0,1fr) 0px;
     background-color: #f9f9f9;
-
+  //color: white;
     //-webkit-box-shadow: -2px 7px 10px 1px rgba(0,0,0,0.42);
     //box-shadow: -2px 7px 10px 1px rgba(0,0,0,0.42);
   }

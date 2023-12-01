@@ -12,113 +12,139 @@
 
     <mat-card class="form-cont">
       <div class="title">
-        <h3>Registro de Personal</h3>
+        <h3>Información personal</h3>
         <mat-divider></mat-divider>
       </div>
 
-      <mat-form-field>
-        <mat-label>Clave Interna del Personal</mat-label>
-        <input matInput placeholder="Clave del Primer Respondiente" [(ngModel)]="personal.cve" name="cve" required>
-        <mat-hint></mat-hint>
-      </mat-form-field>
-
-        <mat-form-field>
+      <div class="form-cont">
+        <mat-form-field appearance="fill">
           <mat-label>Nombre</mat-label>
           <input matInput placeholder="Nombre" [(ngModel)]="personal.datPer.nombre" name="nombre" appUppercase required>
           <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>Apellido Paterno</mat-label>
           <input matInput placeholder="Apellido Paterno" [(ngModel)]="personal.datPer.appat" name="appat" appUppercase required>
           <mat-hint></mat-hint>
         </mat-form-field>
+    </div>
 
-        <mat-form-field>
+    <div class="form-cont">
+        <mat-form-field appearance="fill">
           <mat-label>Apellido Materno</mat-label>
           <input matInput placeholder="Apellido Materno" [(ngModel)]="personal.datPer.apmat" name="apmat" appUppercase required>
           <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" [(ngModel)]="personal.datPer.fecnac" name="fecnac" required>
+        <mat-form-field appearance="fill">
+          <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" [(ngModel)]="personal.datPer.fecnac" name="fecnac" >
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+      </div>
 
-        <mat-form-field>
-          <mat-select placeholder="Sexo" [(ngModel)]="personal.datPer.sexo" name="sexo" [compareWith]="this.compareWithEntidadesFederativas" required>
+        <div class="form-cont">
+        <mat-form-field appearance="fill">
+          <mat-select placeholder="Sexo" [(ngModel)]="personal.datPer.sexo" name="sexo" [compareWith]="this.compareWithEntidadesFederativas" >
             <mat-option *ngFor="let en of this.sexo" [value]="en" >{{en.sexo}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <mat-label>RFC</mat-label>
-          <input matInput placeholder="RFC" [(ngModel)]="personal.datPer.rfc" name="rfc" appUppercase required>
+          <input matInput placeholder="RFC" [(ngModel)]="personal.datPer.rfc" name="rfc" appUppercase >
           <mat-hint></mat-hint>
         </mat-form-field>
+      </div>
 
-        <mat-form-field>
+      <div class="form-cont">
+        <mat-form-field appearance="fill">
           <mat-label>CURP</mat-label>
-          <input matInput placeholder="CURP" [(ngModel)]="personal.datPer.curp" name="curp" appUppercase required>
+          <input matInput placeholder="CURP" [(ngModel)]="personal.datPer.curp" name="curp" appUppercase >
           <mat-hint></mat-hint>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>CUIP</mat-label>
-          <input matInput placeholder="CUIP" [(ngModel)]="personal.datPer.cuip" name="cuip" appUppercase required>
-          <mat-hint></mat-hint>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-select placeholder="Estado Civil" [(ngModel)]="personal.datPer.estadoCivil" name="estadoCivil" [compareWith]="this.compareWithEntidadesFederativas" required>
+        <mat-form-field appearance="fill">
+          <mat-select placeholder="Estado Civil" [(ngModel)]="personal.datPer.estadoCivil" name="estadoCivil" [compareWith]="this.compareWithEntidadesFederativas" >
             <mat-option *ngFor="let en of estadoCivil" [value]="en" >{{en.estadoCivil}}</mat-option>
           </mat-select>
         </mat-form-field>
+      </div>
 
-        <mat-form-field>
-          <mat-select placeholder="Grupo Sanguíneo" [(ngModel)]="personal.datPer.grupoSangre" name="grupoSangre" [compareWith]="this.compareWithEntidadesFederativas" required>
-            <mat-option *ngFor="let en of grupoSangre" [value]="en" >{{en.grupoSangre}}</mat-option>
+      <div class="form-cont">
+        <mat-form-field appearance="fill">
+          <mat-label>Escolaridad</mat-label>
+          <mat-select placeholder="Escolaridad" [(ngModel)]="personal.datPer.escolaridad" name="escolaridad" [compareWith]="this.compareWithEntidadesFederativas" >
+            <mat-option *ngFor="let en of escolaridad" [value]="en" >{{en.escolaridad}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-select placeholder="Factor RH" [(ngModel)]="personal.datPer.factorRH" name="factorRH" [compareWith]="this.compareWithEntidadesFederativas" required>
-            <mat-option *ngFor="let en of factorRH" [value]="en" >{{en.factorRH}}</mat-option>
+        <mat-form-field appearance="fill">
+          <mat-label>Dependientes Ecónomicos</mat-label>
+          <mat-select placeholder="Dependientes Ecónomico" [(ngModel)]="personal.datPer.depeco" name="depeco" [compareWith]="this.compareWithEntidadesFederativas" >
+            <mat-option *ngFor="let en of depeco" [value]="en" >{{en.depeco}}</mat-option>
           </mat-select>
         </mat-form-field>
+      </div>
 
-        <mat-form-field>
-          <mat-select placeholder="Grado Policial" [(ngModel)]="personal.grado" name="grado" [compareWith]="this.compareWithEntidadesFederativas" required>
-            <mat-option *ngFor="let en of grado" [value]="en" >{{en.grado}}</mat-option>
-          </mat-select>
+    </mat-card>
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Adjunta Fotografia</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <!-- <app-action-bar class="title" [bntConf]="{new:true}" (new)="cargarDocumento()"></app-action-bar> -->
+
+      <div class="span-cols">
+
+         <input type="file" class="span-cols" id="input-custom-file" (change)="onFileChange($event)" name="uploadedFiles">
+
+      </div>
+    </mat-card>
+
+  </form>
+
+  <form name="groupForm" #groupForm="ngForm">
+
+    <mat-card class="form-cont">
+      <div class="title">
+        <h3>Información empleo</h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="form-cont">
+        <mat-form-field appearance="fill">
+          <mat-label>Número de empleado</mat-label>
+          <input matInput placeholder="1154110" [(ngModel)]="personal.No_empleado" name="No_empleado" required>
+          <mat-hint></mat-hint>
         </mat-form-field>
 
-      <mat-form-field>
-        <mat-select placeholder="Tipo" [(ngModel)]="personal.tipo" name="tipo" [compareWith]="this.compareWithTipos"  (ngModelChange)="onSelectionChange(personal.tipo, 'T', 'UI')" required>
-          <mat-option *ngFor="let en of tipos" [value]="en">{{en.tipo}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo nómina</mat-label>
+          <input matInput placeholder="1, 8, 5, etc" [(ngModel)]="personal.Tipo_nomina" name="Tipo_nomina" >
+          <mat-hint></mat-hint>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select placeholder="Institución" [(ngModel)]="personal.institucion" name="institucion" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(personal.institucion, 'I', 'UI')" required>
-          <mat-option *ngFor="let in of instituciones" [value]="in">{{in.institucion}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Código de puesto</mat-label>
+          <input matInput placeholder="A146464" [(ngModel)]="personal.Cod_puesto" name="Cod_puesto" >
+          <mat-hint></mat-hint>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select placeholder="Sede" [(ngModel)]="personal.sede" name="sede" [compareWith]="this.compareWithTipos" (ngModelChange)="onSelectionChange(personal.sede, 'S', 'UI')" required>
-          <mat-option *ngFor="let se of sedes" [value]="se">{{se.sede}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field *ngIf="personal.tipo['tipo']=='MUNICIPAL'">
-        <mat-select placeholder="Municipio" [(ngModel)]="personal.municip" name="municip" [compareWith]="this.compareWithTipos">
-          <mat-option *ngFor="let mu of municipios" [value]="mu">{{mu.municip}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del puesto</mat-label>
+          <input matInput placeholder="Asesor" [(ngModel)]="personal.Nom_puesto" name="Nom_puesto" >
+          <mat-hint></mat-hint>
+        </mat-form-field>
+      </div>
 
     </mat-card>
 
   </form>
+  
 </div>
+
+

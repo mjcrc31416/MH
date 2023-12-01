@@ -159,10 +159,6 @@ export class UsuariosEditComponent implements OnInit {
           this.user.apmat = response.apmat;
           this.user.tusuario = response.tusuario;
           this.user.vincular = response.vincular;
-          this.user.tipo = response.tipo;
-          this.user.institucion = response.institucion;
-          this.user.sede = response.sede;
-          this.user.municip = response.municip;
           
         } else if (response) {
           this.user._id = response._id;
@@ -174,10 +170,6 @@ export class UsuariosEditComponent implements OnInit {
           this.user.tusuario = response.tusuario;
           this.user.vincular = response.vincular;
           this.user.policia = response.policia;
-          this.user.tipo = response.tipo;
-          this.user.institucion = response.institucion;
-          this.user.sede = response.sede;
-          this.user.municip = response.municip;
 
           this.policias = [];
 
@@ -268,11 +260,6 @@ export class UsuariosEditComponent implements OnInit {
       this.tipos.push({cve:item.cve, tipo: item.tipo});
     })
 
-    if (this.user.tipo && this.user.institucion && this.user.sede) {
-      this.onSelectionChange(this.user.tipo, 'T', 'R');
-      this.onSelectionChange(this.user.institucion, 'I', 'R');
-      this.onSelectionChange(this.user.sede, 'S', 'R');
-    }
   }
 
   compareWithForRol(c1, c2) {
@@ -295,68 +282,5 @@ export class UsuariosEditComponent implements OnInit {
     return (d1 && d2) ? d1._id === d2._id : false;
   }
 
-  onSelectionChange(value, type, mode) {
-    if (type == 'T') {
-      let tipo = this.catalogo.find(item => item.cve == value.cve);
-
-      if (tipo) {
-        if (mode == 'UI') {
-          this.user.institucion = {};
-          this.user.sede = {};
-          this.user.municip = {};
-        }
-
-        this.instituciones = [];
-        this.sedes = [];
-        this.municipios = [];
-
-        tipo.institucion.forEach(item => {
-          this.instituciones.push({cve: item.cve, institucion: item.institucion})
-        })
-      }
-    } else if (type == 'I') {
-      let tipo = this.catalogo.find(item => item.cve == this.user.tipo['cve']);
-
-      if (tipo) {
-        let institucion = tipo.institucion.find(item => item.cve == value.cve);
-        
-        if (institucion) {
-          if (mode == 'UI') {
-            this.user.sede = {};
-          }
-          
-          this.sedes = [];
-
-          institucion.sede.forEach(item => {
-            this.sedes.push({cve: item.cve, sede: item.sede})
-          })
-        }
-      }
-    } else if (type == 'S' && this.user.tipo['cve']=='02') {
-      let tipo = this.catalogo.find(item => item.cve == this.user.tipo['cve']);
-
-      if (tipo) {
-        let institucion = tipo.institucion.find(item => item.cve == this.user.institucion['cve']);
-        
-        if (institucion) {
-          let sede = institucion.sede.find(item => item.cve == this.user.sede['cve']);
-        
-          if (sede) {
-            if (mode == 'UI') {
-              this.user.municip = {};
-            }
-
-            this.municipios = [];
-    
-            sede.municip.forEach(item => {
-              this.municipios.push({cve: item.cve, municip: item.municip})
-            })
-          }
-        }
-      }
-    }
-  
-
-  }
 
 }
